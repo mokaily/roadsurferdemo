@@ -2,7 +2,7 @@ name: Flutter Web CI/CD
 
 on:
   push:
-    branches: [ CI/CD ]
+    branches: [ main ]
 
 permissions:
   contents: write
