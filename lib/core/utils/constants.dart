@@ -8,6 +8,11 @@ class Constants {
 
   static const Map<String, String> kSupportedLanguages = {'en': 'EN', 'de': 'DE'};
 
+  static const Map<String, String> languageLabels = {
+    'en': 'English',
+    'de': 'German',
+  };
+
   // static const SliverGridDelegate gridDelegate = SliverGridDelegateWithMaxCrossAxisExtent(
   //   maxCrossAxisExtent: 500,
   //   crossAxisSpacing: 8.0,
@@ -16,5 +21,4 @@ class Constants {
   // );
 
   static DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
-
 }
