@@ -42,8 +42,8 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
       if (params.maxPricePerNight != null) {
         matches &= camp.pricePerNight <= params.maxPricePerNight!;
       }
-      if (params.cityName != null) {
-        matches &= (camp.cityName ?? '').toLowerCase().contains(params.cityName!.toLowerCase());
+      if (params.address != null) {
+        matches &= (camp.address ?? '').toLowerCase().contains(params.address!.toLowerCase());
       }
       if (params.hostLanguages != null && params.hostLanguages!.isNotEmpty) {
         matches &= params.hostLanguages!.any((lang) => camp.hostLanguages.contains(lang));

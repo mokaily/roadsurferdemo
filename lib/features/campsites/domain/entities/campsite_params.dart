@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 class CampsiteParams extends Equatable {
   final String id;
   final String label;
-  final String? cityName;
+  final String? address;
   final String photo;
   final double latitude;
   final double longitude;
@@ -22,12 +22,12 @@ class CampsiteParams extends Equatable {
     required this.isCampFireAllowed,
     required this.pricePerNight,
     required this.hostLanguages,
-    this.cityName,
+    this.address,
   });
 
   @override
   List<Object?> get props => [
     id, label, photo, latitude, longitude, isCloseToWater,
-    isCampFireAllowed, pricePerNight, hostLanguages, cityName
+    isCampFireAllowed, pricePerNight, hostLanguages, address
   ];
 }
