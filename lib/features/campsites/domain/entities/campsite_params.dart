@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 class CampsiteParams extends Equatable {
   final String id;
   final String label;
-  String? address;
+  String address;
   final String photo;
   final double latitude;
   final double longitude;
@@ -22,7 +22,7 @@ class CampsiteParams extends Equatable {
     required this.isCampFireAllowed,
     required this.pricePerNight,
     required this.hostLanguages,
-    this.address,
+    this.address = "",
   });
 
   @override

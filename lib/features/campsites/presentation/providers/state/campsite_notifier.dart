@@ -8,7 +8,7 @@ import 'campsite_state.dart';
 class CampsiteNotifier extends StateNotifier<CampsiteState> {
   final GetAllCampsitesUseCase getAllCampsitesUseCase;
 
-  List<CampsiteParams>? campsites;
+  List<CampsiteParams> campsites = [];
   CampsiteNotifier({
     required this.getAllCampsitesUseCase,
   }) : super(const CampsiteState.initial());
@@ -21,18 +21,33 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
       campsites = result;
       state = CampsiteState.success(campsites: result);
 
-      await Future.delayed(Duration(seconds: 3), () {
-        campsites?.first.address = "aaaaaaaaaaaaaaa";
-          state = CampsiteState.success(campsites: campsites);
-      });
+      // await Future.delayed(Duration(seconds: 3), () {
+      //   campsites.first.address = "aaaaaaaaaaaaaaa";
+      //   state = CampsiteState.success(campsites: campsites);
+      // });
     } catch (e) {
       state = CampsiteState.error(e.toString());
     }
   }
 
+  void searchCampsites(String query) async {
+    state = const CampsiteState.searchLoading();
+    if (query.isEmpty) {
+      state = CampsiteState.searchResult(campsites: campsites);
+    } else {
+      final filtered = campsites
+              .where((camp) =>
+                  (camp.label.toLowerCase() + camp.address.toLowerCase()).contains(query.toLowerCase()))
+              .toList();
+
+      state = CampsiteState.searchResult(campsites: filtered);
+    }
+  }
 
   void applyFilter(FilterParams params) {
-    final filtered = campsites?.where((camp) {
+    state = const CampsiteState.filterLoading();
+
+    final filtered = campsites.where((camp) {
       bool matches = true;
 
       if (params.isCloseToWater != null) {
@@ -48,7 +63,7 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
         matches &= camp.pricePerNight <= params.maxPricePerNight!;
       }
       if (params.address != null) {
-        matches &= (camp.address ?? '').toLowerCase().contains(params.address!.toLowerCase());
+        matches &= (camp.address).toLowerCase().contains(params.address!.toLowerCase());
       }
       if (params.hostLanguages != null && params.hostLanguages!.isNotEmpty) {
         matches &= params.hostLanguages!.any((lang) => camp.hostLanguages.contains(lang));
@@ -57,6 +72,6 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
       return matches;
     }).toList();
 
-    state = CampsiteState.success(campsites: filtered);
+    state = CampsiteState.filterResult(campsites: filtered);
   }
 }

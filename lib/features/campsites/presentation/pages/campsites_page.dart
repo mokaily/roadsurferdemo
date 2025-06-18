@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:roadsurferdemo/core/notifiers/screen_size_notifier.dart';
+import 'package:roadsurferdemo/core/providers/screen_size_provider.dart';
+import 'package:roadsurferdemo/core/widgets/app_bar_widget.dart';
+import 'package:roadsurferdemo/core/widgets/max_width_wrapper_widget.dart';
 import 'package:roadsurferdemo/dependency_injection.dart';
+import 'package:roadsurferdemo/features/campsites/domain/entities/campsite_params.dart';
+import 'package:roadsurferdemo/features/campsites/presentation/providers/state/campsite_state.dart';
 import 'package:roadsurferdemo/features/campsites/presentation/widgets/camp_card/campsites_cards_widget.dart';
-import '../../../../core/notifiers/screen_size_notifier.dart';
-import '../../../../core/providers/screen_size_provider.dart';
-import '../../../../core/widgets/app_bar_widget.dart';
-import '../../../../core/widgets/max_width_wrapper_widget.dart';
-import '../../domain/entities/campsite_params.dart';
-import '../providers/state/campsite_state.dart';
-import '../widgets/filter_widget.dart';
-import '../widgets/header_widget.dart';
-import '../widgets/loading_widget.dart';
-import '../widgets/search_widget.dart';
-import '../widgets/subheader_widget.dart';
+import 'package:roadsurferdemo/features/campsites/presentation/widgets/filter_widget.dart';
+import 'package:roadsurferdemo/features/campsites/presentation/widgets/header_widget.dart';
+import 'package:roadsurferdemo/features/campsites/presentation/widgets/loading_widget.dart';
+import 'package:roadsurferdemo/features/campsites/presentation/widgets/no_data_widget.dart';
+import 'package:roadsurferdemo/features/campsites/presentation/widgets/search_widget.dart';
+import 'package:roadsurferdemo/features/campsites/presentation/widgets/subheader_widget.dart';
 
 class CampsitesPage extends ConsumerStatefulWidget {
   const CampsitesPage({super.key});
@@ -42,16 +43,37 @@ class _CampsitesPageState extends ConsumerState<CampsitesPage> {
     ref.watch(campsiteNotifierProvider);
 
     ref.listen(campsiteNotifierProvider.select((value) => value), ((previous, next) async {
-      if (next is LoadingState) {
+      if (next is LoadingState || next is SearchLoadingState || next is FilterLoadingState) {
         setState(() {
           isLoading = true;
+        });
+      }
+      if (next is FilterResultState) {
+        setState(() {
+          isLoading = false;
+          isNoData = next.campsites.isEmpty;
+          campsites = next.campsites;
+        });
+      }
+      if (next is SearchSuccessState) {
+        setState(() {
+          isLoading = false;
+          isNoData = next.campsites.isEmpty;
+          campsites = next.campsites;
         });
       }
       if (next is SuccessState) {
         setState(() {
           isLoading = false;
-          isNoData = next.campsites!.isEmpty;
-          campsites = next.campsites!;
+          isNoData = next.campsites.isEmpty;
+          campsites = next.campsites;
+        });
+      }
+      if (next is SuccessState) {
+        setState(() {
+          isLoading = false;
+          isNoData = next.campsites.isEmpty;
+          campsites = next.campsites;
         });
       }
     }));
@@ -70,6 +92,8 @@ class _CampsitesPageState extends ConsumerState<CampsitesPage> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       if (sizeProvider.isDesktop) const SizedBox(width: 300, child: FiltersScreen()),
                       Expanded(
@@ -85,8 +109,8 @@ class _CampsitesPageState extends ConsumerState<CampsitesPage> {
                               delegate: _StickySearchFilterBar(),
                             ),
                             if (isLoading) const LoadingWidget(),
-                            if (isNoData && !isLoading) const LoadingWidget(),
-                            if (!isNoData && !isLoading) CampGridViewWidget(campsite: campsites),
+                            if (!isLoading && isNoData) const NoDataWidget(),
+                            if (!isLoading && !isNoData) CampGridViewWidget(campsite: campsites),
                           ],
                         ),
                       ),

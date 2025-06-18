@@ -57,6 +57,26 @@ class Initial implements CampsiteState {
 
 /// @nodoc
 
+class LoadingState implements CampsiteState {
+  const LoadingState();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is LoadingState);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'CampsiteState.loading()';
+  }
+}
+
+/// @nodoc
+
 class ErrorState implements CampsiteState {
   const ErrorState(this.error);
 
@@ -120,37 +140,15 @@ class _$ErrorStateCopyWithImpl<$Res> implements $ErrorStateCopyWith<$Res> {
 
 /// @nodoc
 
-class LoadingState implements CampsiteState {
-  const LoadingState();
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is LoadingState);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  String toString() {
-    return 'CampsiteState.loading()';
-  }
-}
-
-/// @nodoc
-
 class SuccessState implements CampsiteState {
-  const SuccessState({required final List<CampsiteParams>? campsites})
+  const SuccessState({required final List<CampsiteParams> campsites})
       : _campsites = campsites;
 
-  final List<CampsiteParams>? _campsites;
-  List<CampsiteParams>? get campsites {
-    final value = _campsites;
-    if (value == null) return null;
+  final List<CampsiteParams> _campsites;
+  List<CampsiteParams> get campsites {
     if (_campsites is EqualUnmodifiableListView) return _campsites;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_campsites);
   }
 
   /// Create a copy of CampsiteState
@@ -186,7 +184,7 @@ abstract mixin class $SuccessStateCopyWith<$Res>
           SuccessState value, $Res Function(SuccessState) _then) =
       _$SuccessStateCopyWithImpl;
   @useResult
-  $Res call({List<CampsiteParams>? campsites});
+  $Res call({List<CampsiteParams> campsites});
 }
 
 /// @nodoc
@@ -200,13 +198,197 @@ class _$SuccessStateCopyWithImpl<$Res> implements $SuccessStateCopyWith<$Res> {
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? campsites = freezed,
+    Object? campsites = null,
   }) {
     return _then(SuccessState(
-      campsites: freezed == campsites
+      campsites: null == campsites
           ? _self._campsites
           : campsites // ignore: cast_nullable_to_non_nullable
-              as List<CampsiteParams>?,
+              as List<CampsiteParams>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class SearchLoadingState implements CampsiteState {
+  const SearchLoadingState();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is SearchLoadingState);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'CampsiteState.searchLoading()';
+  }
+}
+
+/// @nodoc
+
+class SearchSuccessState implements CampsiteState {
+  const SearchSuccessState({required final List<CampsiteParams> campsites})
+      : _campsites = campsites;
+
+  final List<CampsiteParams> _campsites;
+  List<CampsiteParams> get campsites {
+    if (_campsites is EqualUnmodifiableListView) return _campsites;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_campsites);
+  }
+
+  /// Create a copy of CampsiteState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $SearchSuccessStateCopyWith<SearchSuccessState> get copyWith =>
+      _$SearchSuccessStateCopyWithImpl<SearchSuccessState>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is SearchSuccessState &&
+            const DeepCollectionEquality()
+                .equals(other._campsites, _campsites));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_campsites));
+
+  @override
+  String toString() {
+    return 'CampsiteState.searchResult(campsites: $campsites)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $SearchSuccessStateCopyWith<$Res>
+    implements $CampsiteStateCopyWith<$Res> {
+  factory $SearchSuccessStateCopyWith(
+          SearchSuccessState value, $Res Function(SearchSuccessState) _then) =
+      _$SearchSuccessStateCopyWithImpl;
+  @useResult
+  $Res call({List<CampsiteParams> campsites});
+}
+
+/// @nodoc
+class _$SearchSuccessStateCopyWithImpl<$Res>
+    implements $SearchSuccessStateCopyWith<$Res> {
+  _$SearchSuccessStateCopyWithImpl(this._self, this._then);
+
+  final SearchSuccessState _self;
+  final $Res Function(SearchSuccessState) _then;
+
+  /// Create a copy of CampsiteState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? campsites = null,
+  }) {
+    return _then(SearchSuccessState(
+      campsites: null == campsites
+          ? _self._campsites
+          : campsites // ignore: cast_nullable_to_non_nullable
+              as List<CampsiteParams>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class FilterLoadingState implements CampsiteState {
+  const FilterLoadingState();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is FilterLoadingState);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'CampsiteState.filterLoading()';
+  }
+}
+
+/// @nodoc
+
+class FilterResultState implements CampsiteState {
+  const FilterResultState({required final List<CampsiteParams> campsites})
+      : _campsites = campsites;
+
+  final List<CampsiteParams> _campsites;
+  List<CampsiteParams> get campsites {
+    if (_campsites is EqualUnmodifiableListView) return _campsites;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_campsites);
+  }
+
+  /// Create a copy of CampsiteState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $FilterResultStateCopyWith<FilterResultState> get copyWith =>
+      _$FilterResultStateCopyWithImpl<FilterResultState>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is FilterResultState &&
+            const DeepCollectionEquality()
+                .equals(other._campsites, _campsites));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_campsites));
+
+  @override
+  String toString() {
+    return 'CampsiteState.filterResult(campsites: $campsites)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $FilterResultStateCopyWith<$Res>
+    implements $CampsiteStateCopyWith<$Res> {
+  factory $FilterResultStateCopyWith(
+          FilterResultState value, $Res Function(FilterResultState) _then) =
+      _$FilterResultStateCopyWithImpl;
+  @useResult
+  $Res call({List<CampsiteParams> campsites});
+}
+
+/// @nodoc
+class _$FilterResultStateCopyWithImpl<$Res>
+    implements $FilterResultStateCopyWith<$Res> {
+  _$FilterResultStateCopyWithImpl(this._self, this._then);
+
+  final FilterResultState _self;
+  final $Res Function(FilterResultState) _then;
+
+  /// Create a copy of CampsiteState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? campsites = null,
+  }) {
+    return _then(FilterResultState(
+      campsites: null == campsites
+          ? _self._campsites
+          : campsites // ignore: cast_nullable_to_non_nullable
+              as List<CampsiteParams>,
     ));
   }
 }

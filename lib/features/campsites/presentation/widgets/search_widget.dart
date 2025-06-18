@@ -29,8 +29,7 @@ class SearchWidget extends ConsumerWidget {
             hintText: "Search Campsites",
             leading: const Icon(Icons.search),
             onChanged: (value) {
-              print("Search value: $value");
-              // ref.read(campsiteNotifierProvider.notifier).searchCampsites(value);
+              ref.read(campsiteNotifierProvider.notifier).searchCampsites(value);
             },
           )),
           if (!sizeProvider.isDesktop) ...[

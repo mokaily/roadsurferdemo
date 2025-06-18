@@ -13,7 +13,7 @@ class CampGridViewWidget extends ConsumerWidget {
       padding: const EdgeInsets.all(20),
       sliver: SliverGrid(
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 500,
+          maxCrossAxisExtent: 350,
           mainAxisExtent: 320,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
