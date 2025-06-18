@@ -18,6 +18,10 @@ class Helpers {
     return double.parse((price / 100).toStringAsFixed(2));
   }
 
+  static String formatURL(String url) {
+    return url.replaceFirst("http://", "https://");
+  }
+
   static DateTime formattingDate(String date) {
     final DateTime parsed = DateTime.parse(date).toLocal();
     final String formatted = Constants.dateFormat.format(parsed);
