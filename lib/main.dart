@@ -5,7 +5,8 @@ import 'package:roadsurferdemo/core/utils/constants.dart';
 import 'core/providers/local_provider.dart';
 import 'core/providers/screen_size_provider.dart';
 import 'core/themes/themes.dart';
-import 'features/campsites/presentation/pages/campsite_view_page.dart';
+import 'features/campsites/presentation/pages/campsite_details_page.dart';
+import 'features/campsites/presentation/pages/campsites_page.dart';
 import 'l10n/app_localizations.dart';
 
 late WidgetRef globalRef;
@@ -35,7 +36,7 @@ class MyApp extends ConsumerWidget {
       locale: locale,
       theme: Themes.lightTheme,
       themeMode: ThemeMode.system,
-      home: const CampsiteViewPage(),
+      home: const CampsitesPage(),
     );
   }
 }

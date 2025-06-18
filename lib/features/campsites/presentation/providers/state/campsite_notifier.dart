@@ -20,6 +20,11 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
       final result = await getAllCampsitesUseCase();
       campsites = result;
       state = CampsiteState.success(campsites: result);
+
+      await Future.delayed(Duration(seconds: 3), () {
+        campsites?.first.address = "aaaaaaaaaaaaaaa";
+          state = CampsiteState.success(campsites: campsites);
+      });
     } catch (e) {
       state = CampsiteState.error(e.toString());
     }
