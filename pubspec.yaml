@@ -21,6 +21,8 @@ dependencies:
   equatable: ^2.0.7
   # json class builder
   json_annotation: ^4.9.0
+  flutter_map: ^8.1.1
+  flutter_map_cancellable_tile_provider: ^3.1.0
 
 dev_dependencies:
   flutter_test:
