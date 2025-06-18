@@ -9,11 +9,12 @@ extension CampsiteModelMapper on CampsiteModel {
     required double pricePerNight,
     String? countryName,
     required DateTime createdAt,
+    required String newUrl,
   }) {
     return CampsiteParams(
       id: id,
       label: label,
-      photo: photo,
+      photo: newUrl,
       latitude: latitude,
       longitude: longitude,
       isCloseToWater: isCloseToWater,
