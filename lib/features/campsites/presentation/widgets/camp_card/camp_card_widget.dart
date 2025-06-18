@@ -87,7 +87,7 @@ class _CampCardWidgetState extends ConsumerState<CampCardWidget> {
                         ),
                       ),
                       Text(
-                        widget.campsite!.label.capitalize(),
+                        widget.campsite!.label.capitalCase(),
                         maxLines: 1,
                         style: const TextStyle(
                           fontSize: 20,
