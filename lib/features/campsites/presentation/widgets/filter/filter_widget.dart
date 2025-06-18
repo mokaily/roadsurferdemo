@@ -1,3 +1,5 @@
+import 'dart:ui';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roadsurferdemo/features/campsites/presentation/widgets/filter/filter_price_range_widget.dart';
@@ -21,37 +23,65 @@ class _CampCardWidgetState extends ConsumerState<FiltersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox.expand(
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 16.0),
-            child: Text(
-              "Filters",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
+    return SizedBox.expand(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
           ),
-          Divider(height: 1),
-          Expanded(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 20),
-                  FilterPriceRangeWidget(),
-                  SizedBox(height: 20),
-                  FilterSortByWidget(),
-                  SizedBox(height: 20),
-                  FilterFeaturesWidget(),
-                  SizedBox(height: 20),
-                  FilterLanguagesWidget(),
-                ],
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withValues(alpha: 0.3),
+              spreadRadius: 2,
+              blurRadius: 7,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16.0),
+              child: Text(
+                "Filters",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
-          ),
-          FilterResetButtonWidget(),
-        ],
+            const Divider(height: 1),
+            Expanded(
+              child: ScrollConfiguration(
+                behavior: const MaterialScrollBehavior().copyWith(
+                  dragDevices: {
+                    PointerDeviceKind.touch,
+                    PointerDeviceKind.mouse,
+                  },
+                ),
+                child: const SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  dragStartBehavior: DragStartBehavior.start,
+                  physics: AlwaysScrollableScrollPhysics(),
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 20),
+                      FilterPriceRangeWidget(),
+                      SizedBox(height: 20),
+                      FilterSortByWidget(),
+                      SizedBox(height: 20),
+                      FilterFeaturesWidget(),
+                      SizedBox(height: 20),
+                      FilterLanguagesWidget(),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const FilterResetButtonWidget(),
+          ],
+        ),
       ),
     );
   }

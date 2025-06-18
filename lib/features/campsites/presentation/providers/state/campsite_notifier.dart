@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roadsurferdemo/features/campsites/domain/enums/campsite_sortby_enums.dart';
 
@@ -10,6 +11,9 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
   final GetAllCampsitesUseCase getAllCampsitesUseCase;
 
   List<CampsiteParams> campsites = [];
+  List<CampsiteParams> filteredCampsites = [];
+  TextEditingController searchController = TextEditingController();
+
   FilterParams filterParams = const FilterParams();
 
   CampsiteNotifier({
@@ -37,13 +41,13 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
 
   _getAvailableLanguages({required List<CampsiteParams> campsites}) async {
     List<String> allLanguages = [];
-    campsites.map((
-        e) => e.hostLanguages.forEach((lang) {
-          if (!allLanguages.contains(lang)) {
-            allLanguages.add(lang);
-          }
-        }
-        )).toList();
+    campsites
+        .map((e) => e.hostLanguages.forEach((lang) {
+              if (!allLanguages.contains(lang)) {
+                allLanguages.add(lang);
+              }
+            }))
+        .toList();
     filterParams = filterParams.copyWith(availableLanguages: allLanguages);
     state = CampsiteState.filterInitiating(filterParams: filterParams);
   }
@@ -62,11 +66,11 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
     if (query.isEmpty) {
       state = CampsiteState.searchResult(campsites: campsites);
     } else {
-      final filtered = campsites
+      final filtered = (filteredCampsites.isEmpty ? campsites : filteredCampsites)
           .where(
               (camp) => (camp.label.toLowerCase() + camp.address.toLowerCase()).contains(query.toLowerCase()))
           .toList();
-
+      filteredCampsites = filtered;
       state = CampsiteState.searchResult(campsites: filtered);
     }
   }
@@ -74,7 +78,9 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
   void applyFilter(FilterParams params) {
     state = const CampsiteState.filterLoading();
     filterParams = params;
-    final filtered = campsites.where((camp) {
+    final filtered =
+        (filteredCampsites.isEmpty || searchController.text.isEmpty ? campsites : filteredCampsites)
+            .where((camp) {
       bool matches = true;
 
       if (params.isCloseToWater != null) {
@@ -114,7 +120,7 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
       default:
         break;
     }
-
+    filteredCampsites = filtered;
     state = CampsiteState.filterResult(campsites: filtered);
   }
 
@@ -124,6 +130,8 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
       lowestMinPricePerNight: filterParams.lowestMinPricePerNight,
       availableLanguages: filterParams.availableLanguages,
     );
+    searchController.clear();
     state = CampsiteState.filterInitiating(filterParams: filterParams);
+    state = CampsiteState.filterResult(campsites: campsites);
   }
 }

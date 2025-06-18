@@ -18,10 +18,8 @@ class _CampCardWidgetState extends ConsumerState<FilterLanguagesWidget> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      final currentFilter = ref.read(campsiteNotifierProvider.notifier).filterParams;
-      selectedLanguages = {...?currentFilter.hostLanguages};
-    });
+    final currentFilter = ref.read(campsiteNotifierProvider.notifier).filterParams;
+    selectedLanguages = {...?currentFilter.hostLanguages};
     super.initState();
   }
 
@@ -58,7 +56,8 @@ class _CampCardWidgetState extends ConsumerState<FilterLanguagesWidget> {
               }
 
               setState(() {
-                final updated = ref.watch(currentFilterProvider).copyWith(hostLanguages: selectedLanguages.toList());
+                final updated =
+                    ref.watch(currentFilterProvider).copyWith(hostLanguages: selectedLanguages.toList());
                 ref.read(campsiteNotifierProvider.notifier).applyFilter(updated);
               });
             },

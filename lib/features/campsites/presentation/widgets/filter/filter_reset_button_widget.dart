@@ -30,16 +30,6 @@ class _CampCardWidgetState extends ConsumerState<FilterResetButtonWidget> {
           },
           icon: const Icon(Icons.refresh),
           label: const Text("Reset Filters"),
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5),
-            ),
-            visualDensity: VisualDensity.standard,
-            padding: const EdgeInsets.symmetric(vertical: 6),
-            iconSize: 18,
-            foregroundColor: Colors.white,
-            backgroundColor: Colors.green,
-          ),
         ),
       ),
     );

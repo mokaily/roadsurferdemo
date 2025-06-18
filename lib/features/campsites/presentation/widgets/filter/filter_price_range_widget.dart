@@ -52,8 +52,8 @@ class _CampCardWidgetState extends ConsumerState<FilterPriceRangeWidget> {
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
         RangeSlider(
-          activeColor: Colors.green,
-          inactiveColor: Colors.grey,
+          // activeColor: Colors.green,
+          // inactiveColor: Colors.grey,
           values: priceRange,
           onChanged: (range) {
             setState(() => _localRange = range);

@@ -5,6 +5,7 @@ import 'package:roadsurferdemo/dependency_injection.dart';
 
 import '../../../../core/providers/screen_size_provider.dart';
 import '../../../../core/themes/themes.dart';
+import 'filter/filter_widget.dart';
 
 class SearchWidget extends ConsumerWidget {
   final double widgetHeight;
@@ -25,8 +26,9 @@ class SearchWidget extends ConsumerWidget {
         children: [
           Expanded(
               child: SearchBar(
-            enabled: ref.read(campsiteNotifierProvider.notifier).campsites?.isNotEmpty ?? false,
+            enabled: ref.watch(campsiteNotifierProvider.notifier).campsites.isNotEmpty,
             hintText: "Search Campsites",
+            controller: ref.watch(campsiteNotifierProvider.notifier).searchController,
             leading: const Icon(Icons.search),
             onChanged: (value) {
               ref.read(campsiteNotifierProvider.notifier).searchCampsites(value);
@@ -35,7 +37,9 @@ class SearchWidget extends ConsumerWidget {
           if (!sizeProvider.isDesktop) ...[
             const SizedBox(width: 8),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                openSideScreen(context);
+              },
               child: Container(
                 width: 50,
                 height: 50,
@@ -58,4 +62,43 @@ class SearchWidget extends ConsumerWidget {
       ),
     );
   }
+}
+
+void openSideScreen(BuildContext context) {
+  showModalBottomSheet(
+    enableDrag: true,
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    barrierColor: Colors.black45,
+    builder: (context) {
+      return Stack(
+        children: [
+          GestureDetector(
+            onTap: () => Navigator.of(context).pop(),
+            child: Container(
+              color: Colors.transparent,
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height,
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.5,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                ),
+              ),
+              child: const FiltersScreen(),
+            ),
+          ),
+        ],
+      );
+    },
+  );
 }

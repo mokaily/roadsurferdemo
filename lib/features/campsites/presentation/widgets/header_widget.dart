@@ -15,14 +15,14 @@ class HeaderWidget extends ConsumerWidget {
     ScreenSizeNotifier sizeProvider = ref.watch(screenSizeProvider);
 
     return Container(
-      height: sizeProvider.isDesktop ? 300 : 150,
+      height: sizeProvider.isDesktop ? 250 : 125,
       width: double.infinity,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: const AssetImage("assets/banner.jpg"),
           fit: BoxFit.cover,
           alignment: Alignment.center,
-          colorFilter: ColorFilter.mode(Colors.black.withValues(alpha: 0.3), BlendMode.darken),
+          colorFilter: ColorFilter.mode(Colors.black.withValues(alpha: 0.45), BlendMode.darken),
         ),
       ),
       child: MaxWidthWrapper(

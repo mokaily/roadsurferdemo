@@ -44,6 +44,7 @@ class _CampCardWidgetState extends ConsumerState<CampCardWidget> {
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
                   height: 150,
@@ -75,6 +76,7 @@ class _CampCardWidgetState extends ConsumerState<CampCardWidget> {
                       ),
                       Text(
                         widget.campsite!.label.capitalize(),
+                        maxLines: 1,
                         style:
                             const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
                       ),

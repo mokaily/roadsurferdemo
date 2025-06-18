@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roadsurferdemo/core/notifiers/screen_size_notifier.dart';
@@ -90,28 +92,36 @@ class _CampsitesPageState extends ConsumerState<CampsitesPage> {
             SliverFillRemaining(
               child: MaxWidthWrapper(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                  padding: EdgeInsets.symmetric(horizontal: sizeProvider.isDesktop ? 50 : 20, vertical: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       if (sizeProvider.isDesktop) const SizedBox(width: 300, child: FiltersScreen()),
                       Expanded(
-                        child: CustomScrollView(
-                          shrinkWrap: true,
-                          slivers: [
-                            if (sizeProvider.isDesktop)
-                              const SliverToBoxAdapter(
-                                child: SubHeaderWidget(),
+                        child: ScrollConfiguration(
+                          behavior: const MaterialScrollBehavior().copyWith(
+                            dragDevices: {
+                              PointerDeviceKind.touch,
+                              PointerDeviceKind.mouse,
+                            },
+                          ),
+                          child: CustomScrollView(
+                            shrinkWrap: true,
+                            slivers: [
+                              if (sizeProvider.isDesktop)
+                                const SliverToBoxAdapter(
+                                  child: SubHeaderWidget(),
+                                ),
+                              SliverPersistentHeader(
+                                pinned: true,
+                                delegate: _StickySearchFilterBar(),
                               ),
-                            SliverPersistentHeader(
-                              pinned: true,
-                              delegate: _StickySearchFilterBar(),
-                            ),
-                            if (isLoading) const LoadingWidget(),
-                            if (!isLoading && isNoData) const NoDataWidget(),
-                            if (!isLoading && !isNoData) CampGridViewWidget(campsite: campsites),
-                          ],
+                              if (isLoading) const LoadingWidget(),
+                              if (!isLoading && isNoData) const NoDataWidget(),
+                              if (!isLoading && !isNoData) CampGridViewWidget(campsite: campsites),
+                            ],
+                          ),
                         ),
                       ),
                     ],
