@@ -9,7 +9,6 @@ import '../../../../core/widgets/app_bar_widget.dart';
 import '../../../../core/widgets/max_width_wrapper_widget.dart';
 import '../../domain/entities/campsite_params.dart';
 import '../providers/state/campsite_state.dart';
-import '../widgets/filter_widget.dart';
 import '../widgets/loading_widget.dart';
 import '../widgets/map/maps_widget.dart';
 
@@ -50,8 +49,8 @@ class _CampsiteDetailsState extends ConsumerState<CampsiteDetails> {
       if (next is SuccessState) {
         setState(() {
           isLoading = false;
-          isNoData = next.campsites!.isEmpty;
-          campsites = next.campsites!;
+          isNoData = next.campsites.isEmpty;
+          campsites = next.campsites;
         });
       }
     }));
