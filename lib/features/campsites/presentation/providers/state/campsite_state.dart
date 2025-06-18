@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:roadsurferdemo/features/campsites/domain/entities/filter_params.dart';
 import '../../../domain/entities/campsite_params.dart';
 
 part 'campsite_state.freezed.dart';
@@ -20,6 +21,8 @@ abstract class CampsiteState with _$CampsiteState {
   const factory CampsiteState.searchResult({
     required List<CampsiteParams> campsites,
   }) = SearchSuccessState;
+
+  const factory CampsiteState.filterInitiating({required FilterParams filterParams}) = FilterInitiating;
 
   const factory CampsiteState.filterLoading() = FilterLoadingState;
 

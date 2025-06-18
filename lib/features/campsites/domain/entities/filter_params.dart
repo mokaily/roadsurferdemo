@@ -5,11 +5,12 @@ class FilterParams extends Equatable {
   final bool? isCloseToWater;
   final bool? isCampFireAllowed;
   final double? minPricePerNight;
-  final double? lowestMinPricePerNight;
   final double? maxPricePerNight;
+  final double? lowestMinPricePerNight;
   final double? highestPricePerNight;
   final String? address;
   final List<String>? hostLanguages;
+  final List<String>? availableLanguages;
   final CampsiteSortBy? sortBy;
 
   const FilterParams({
@@ -21,6 +22,7 @@ class FilterParams extends Equatable {
     this.highestPricePerNight,
     this.address,
     this.hostLanguages,
+    this.availableLanguages,
     this.sortBy,
   });
 
@@ -32,6 +34,7 @@ class FilterParams extends Equatable {
         minPricePerNight,
         maxPricePerNight,
         hostLanguages,
+        availableLanguages,
         highestPricePerNight,
         lowestMinPricePerNight,
         sortBy
@@ -46,6 +49,7 @@ class FilterParams extends Equatable {
     bool? isCampFireAllowed,
     String? address,
     List<String>? hostLanguages,
+    List<String>? availableLanguages,
     CampsiteSortBy? sortBy,
   }) {
     return FilterParams(
@@ -57,6 +61,7 @@ class FilterParams extends Equatable {
       isCampFireAllowed: isCampFireAllowed ?? this.isCampFireAllowed,
       address: address ?? this.address,
       hostLanguages: hostLanguages ?? this.hostLanguages,
+      availableLanguages: availableLanguages ?? this.availableLanguages,
       sortBy: sortBy ?? this.sortBy,
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roadsurferdemo/core/utils/constants.dart';
 import 'package:roadsurferdemo/features/campsites/data/data_sources/geocoding_remote_data_source.dart';
+import 'package:roadsurferdemo/features/campsites/domain/entities/filter_params.dart';
 import 'package:roadsurferdemo/features/campsites/domain/use_cases/get_all_campsites_use_case.dart';
 import '../../../../core/providers/dio_provider.dart';
 import 'core/themes/themes.dart';
@@ -44,3 +45,9 @@ final campsiteNotifierProvider = StateNotifierProvider<CampsiteNotifier, Campsit
     );
   },
 );
+
+final currentFilterProvider = Provider<FilterParams>((ref) {
+  final state = ref.watch(campsiteNotifierProvider);
+  final notifier = ref.read(campsiteNotifierProvider.notifier);
+  return state is FilterInitiating ? state.filterParams : notifier.filterParams;
+});

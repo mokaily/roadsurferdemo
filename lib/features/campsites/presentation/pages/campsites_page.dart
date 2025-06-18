@@ -8,7 +8,7 @@ import 'package:roadsurferdemo/dependency_injection.dart';
 import 'package:roadsurferdemo/features/campsites/domain/entities/campsite_params.dart';
 import 'package:roadsurferdemo/features/campsites/presentation/providers/state/campsite_state.dart';
 import 'package:roadsurferdemo/features/campsites/presentation/widgets/camp_card/campsites_cards_widget.dart';
-import 'package:roadsurferdemo/features/campsites/presentation/widgets/filter_widget.dart';
+import 'package:roadsurferdemo/features/campsites/presentation/widgets/filter/filter_widget.dart';
 import 'package:roadsurferdemo/features/campsites/presentation/widgets/header_widget.dart';
 import 'package:roadsurferdemo/features/campsites/presentation/widgets/loading_widget.dart';
 import 'package:roadsurferdemo/features/campsites/presentation/widgets/no_data_widget.dart';

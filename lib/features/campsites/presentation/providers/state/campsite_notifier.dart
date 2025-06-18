@@ -21,14 +21,9 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
 
     try {
       final result = await getAllCampsitesUseCase();
+      await _getAvailableLanguages(campsites: result);
+      await _calculateMinMaxPrices(campsites: result);
       campsites = result;
-
-      final lowestPrice = campsites.map((e) => e.pricePerNight).reduce((a, b) => a < b ? a : b);
-      final highestPrice = campsites.map((e) => e.pricePerNight).reduce((a, b) => a > b ? a : b);
-
-      filterParams =
-          filterParams.copyWith(lowestMinPricePerNight: lowestPrice, highestPricePerNight: highestPrice);
-
       state = CampsiteState.success(campsites: result);
 
       // await Future.delayed(Duration(seconds: 3), () {
@@ -38,6 +33,28 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
     } catch (e) {
       state = CampsiteState.error(e.toString());
     }
+  }
+
+  _getAvailableLanguages({required List<CampsiteParams> campsites}) async {
+    List<String> allLanguages = [];
+    campsites.map((
+        e) => e.hostLanguages.forEach((lang) {
+          if (!allLanguages.contains(lang)) {
+            allLanguages.add(lang);
+          }
+        }
+        )).toList();
+    filterParams = filterParams.copyWith(availableLanguages: allLanguages);
+    state = CampsiteState.filterInitiating(filterParams: filterParams);
+  }
+
+  _calculateMinMaxPrices({required List<CampsiteParams> campsites}) async {
+    final lowestPrice = campsites.map((e) => e.pricePerNight).reduce((a, b) => a < b ? a : b);
+    final highestPrice = campsites.map((e) => e.pricePerNight).reduce((a, b) => a > b ? a : b);
+
+    filterParams =
+        filterParams.copyWith(lowestMinPricePerNight: lowestPrice, highestPricePerNight: highestPrice);
+    state = CampsiteState.filterInitiating(filterParams: filterParams);
   }
 
   void searchCampsites(String query) async {
@@ -56,7 +73,7 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
 
   void applyFilter(FilterParams params) {
     state = const CampsiteState.filterLoading();
-
+    filterParams = params;
     final filtered = campsites.where((camp) {
       bool matches = true;
 
@@ -81,7 +98,6 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
       return matches;
     }).toList();
 
-
     switch (params.sortBy) {
       case CampsiteSortBy.lowestPrice:
         filtered.sort((a, b) => a.pricePerNight.compareTo(b.pricePerNight));
@@ -99,13 +115,15 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
         break;
     }
 
-        state = CampsiteState.filterResult(campsites: filtered);
+    state = CampsiteState.filterResult(campsites: filtered);
   }
 
   void resetFilters() {
-    applyFilter(FilterParams(
+    filterParams = FilterParams(
       highestPricePerNight: filterParams.highestPricePerNight,
       lowestMinPricePerNight: filterParams.lowestMinPricePerNight,
-    ));
+      availableLanguages: filterParams.availableLanguages,
+    );
+    state = CampsiteState.filterInitiating(filterParams: filterParams);
   }
 }

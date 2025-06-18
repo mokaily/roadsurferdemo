@@ -303,6 +303,71 @@ class _$SearchSuccessStateCopyWithImpl<$Res>
 
 /// @nodoc
 
+class FilterInitiating implements CampsiteState {
+  const FilterInitiating({required this.filterParams});
+
+  final FilterParams filterParams;
+
+  /// Create a copy of CampsiteState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  $FilterInitiatingCopyWith<FilterInitiating> get copyWith =>
+      _$FilterInitiatingCopyWithImpl<FilterInitiating>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is FilterInitiating &&
+            (identical(other.filterParams, filterParams) ||
+                other.filterParams == filterParams));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, filterParams);
+
+  @override
+  String toString() {
+    return 'CampsiteState.filterInitiating(filterParams: $filterParams)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $FilterInitiatingCopyWith<$Res>
+    implements $CampsiteStateCopyWith<$Res> {
+  factory $FilterInitiatingCopyWith(
+          FilterInitiating value, $Res Function(FilterInitiating) _then) =
+      _$FilterInitiatingCopyWithImpl;
+  @useResult
+  $Res call({FilterParams filterParams});
+}
+
+/// @nodoc
+class _$FilterInitiatingCopyWithImpl<$Res>
+    implements $FilterInitiatingCopyWith<$Res> {
+  _$FilterInitiatingCopyWithImpl(this._self, this._then);
+
+  final FilterInitiating _self;
+  final $Res Function(FilterInitiating) _then;
+
+  /// Create a copy of CampsiteState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? filterParams = null,
+  }) {
+    return _then(FilterInitiating(
+      filterParams: null == filterParams
+          ? _self.filterParams
+          : filterParams // ignore: cast_nullable_to_non_nullable
+              as FilterParams,
+    ));
+  }
+}
+
+/// @nodoc
+
 class FilterLoadingState implements CampsiteState {
   const FilterLoadingState();
 
