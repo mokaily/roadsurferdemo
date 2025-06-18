@@ -23,11 +23,10 @@ class CampsiteRepositoryImpl implements CampsiteRepository {
       double newLatitude = Helpers.normalizeLatLong(model.geoLocation.lat);
       double newLongitude = Helpers.normalizeLatLong(model.geoLocation.lng);
       double newPrice = Helpers.normalizePrice(model.pricePerNight);
+      DateTime newDate = Helpers.formattingDate(model.createdAt);
 
       enriched.add(model.toEntity(
-          latitude: newLatitude,
-          longitude: newLongitude,
-          pricePerNight: newPrice));
+          latitude: newLatitude, longitude: newLongitude, pricePerNight: newPrice, createdAt: newDate));
     }
     return enriched;
   }

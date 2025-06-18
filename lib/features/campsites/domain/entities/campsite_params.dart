@@ -11,6 +11,7 @@ class CampsiteParams extends Equatable {
   final bool isCampFireAllowed;
   final double pricePerNight;
   final List<String> hostLanguages;
+  final DateTime createdAt;
 
   CampsiteParams({
     required this.id,
@@ -22,12 +23,13 @@ class CampsiteParams extends Equatable {
     required this.isCampFireAllowed,
     required this.pricePerNight,
     required this.hostLanguages,
+    required this.createdAt,
     this.address = "",
   });
 
   @override
   List<Object?> get props => [
     id, label, photo, latitude, longitude, isCloseToWater,
-    isCampFireAllowed, pricePerNight, hostLanguages, address
+    isCampFireAllowed, pricePerNight, hostLanguages, address, createdAt
   ];
 }

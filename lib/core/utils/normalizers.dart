@@ -1,3 +1,5 @@
+import 'package:roadsurferdemo/core/utils/constants.dart';
+
 class Helpers {
   static double normalizeLatLong(double lat) {
     String raw = lat.toString().replaceAll('.', '');
@@ -13,6 +15,12 @@ class Helpers {
   }
 
   static double normalizePrice(double price) {
-    return double.parse((price / 1000).toStringAsFixed(2));
+    return double.parse((price / 100).toStringAsFixed(2));
+  }
+
+  static DateTime formattingDate(String date) {
+    final DateTime parsed = DateTime.parse(date).toLocal();
+    final String formatted = Constants.dateFormat.format(parsed);
+    return Constants.dateFormat.parse(formatted);
   }
 }

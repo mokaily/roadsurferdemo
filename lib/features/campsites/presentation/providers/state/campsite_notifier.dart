@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:roadsurferdemo/features/campsites/domain/enums/campsite_sortby_enums.dart';
 
 import '../../../domain/entities/campsite_params.dart';
 import '../../../domain/entities/filter_params.dart';
@@ -9,6 +10,8 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
   final GetAllCampsitesUseCase getAllCampsitesUseCase;
 
   List<CampsiteParams> campsites = [];
+  FilterParams filterParams = const FilterParams();
+
   CampsiteNotifier({
     required this.getAllCampsitesUseCase,
   }) : super(const CampsiteState.initial());
@@ -19,6 +22,13 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
     try {
       final result = await getAllCampsitesUseCase();
       campsites = result;
+
+      final lowestPrice = campsites.map((e) => e.pricePerNight).reduce((a, b) => a < b ? a : b);
+      final highestPrice = campsites.map((e) => e.pricePerNight).reduce((a, b) => a > b ? a : b);
+
+      filterParams =
+          filterParams.copyWith(lowestMinPricePerNight: lowestPrice, highestPricePerNight: highestPrice);
+
       state = CampsiteState.success(campsites: result);
 
       // await Future.delayed(Duration(seconds: 3), () {
@@ -36,9 +46,9 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
       state = CampsiteState.searchResult(campsites: campsites);
     } else {
       final filtered = campsites
-              .where((camp) =>
-                  (camp.label.toLowerCase() + camp.address.toLowerCase()).contains(query.toLowerCase()))
-              .toList();
+          .where(
+              (camp) => (camp.label.toLowerCase() + camp.address.toLowerCase()).contains(query.toLowerCase()))
+          .toList();
 
       state = CampsiteState.searchResult(campsites: filtered);
     }
@@ -68,10 +78,34 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
       if (params.hostLanguages != null && params.hostLanguages!.isNotEmpty) {
         matches &= params.hostLanguages!.any((lang) => camp.hostLanguages.contains(lang));
       }
-
       return matches;
     }).toList();
 
-    state = CampsiteState.filterResult(campsites: filtered);
+
+    switch (params.sortBy) {
+      case CampsiteSortBy.lowestPrice:
+        filtered.sort((a, b) => a.pricePerNight.compareTo(b.pricePerNight));
+        break;
+      case CampsiteSortBy.highestPrice:
+        filtered.sort((a, b) => b.pricePerNight.compareTo(a.pricePerNight));
+        break;
+      case CampsiteSortBy.older:
+        filtered.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+        break;
+      case CampsiteSortBy.newer:
+        filtered.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+        break;
+      default:
+        break;
+    }
+
+        state = CampsiteState.filterResult(campsites: filtered);
+  }
+
+  void resetFilters() {
+    applyFilter(FilterParams(
+      highestPricePerNight: filterParams.highestPricePerNight,
+      lowestMinPricePerNight: filterParams.lowestMinPricePerNight,
+    ));
   }
 }

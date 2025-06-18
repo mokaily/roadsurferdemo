@@ -1,80 +1,192 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:roadsurferdemo/features/campsites/domain/enums/campsite_sortby_enums.dart';
 import '../../../../dependency_injection.dart';
 import '../../domain/entities/filter_params.dart';
 
-class FiltersScreen extends ConsumerWidget {
+class FiltersScreen extends ConsumerStatefulWidget {
   const FiltersScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final campsiteState = ref.watch(campsiteNotifierProvider);
+  ConsumerState<FiltersScreen> createState() => _CampCardWidgetState();
+}
+
+class _CampCardWidgetState extends ConsumerState<FiltersScreen> {
+  late bool closeToWater;
+  late bool campfires;
+  late Set<String> selectedLanguages;
+
+  @override
+  void initState() {
+    final filter = ref.read(campsiteNotifierProvider.notifier).filterParams;
+    closeToWater = filter.isCloseToWater ?? false;
+    campfires = filter.isCampFireAllowed ?? false;
+    selectedLanguages = {...?filter.hostLanguages};
+    super.initState();
+  }
+
+  RangeValues? _localRange;
+
+  @override
+  Widget build(BuildContext context) {
     final campsiteNotifier = ref.read(campsiteNotifierProvider.notifier);
-    //
-    // final filter = campsiteState.filterParams;
-    //
-    // RangeValues currentRange = RangeValues(
-    //   campsiteState.filterParams.minPricePerNight ?? 0,
-    //   campsiteState.filterParams.maxPricePerNight ?? 1000,
-    // );
 
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withValues(alpha: 0.3),
-            blurRadius: 10,
-            offset: Offset(0, 5),
-          ),
-        ],
-      ),
-      child: ListView(
-        padding: const EdgeInsets.all(20),
+    final currentFilter = campsiteNotifier.filterParams;
+
+    final double minLimit = campsiteNotifier.filterParams.lowestMinPricePerNight ?? 0;
+    final double maxLimit = campsiteNotifier.filterParams.highestPricePerNight ?? 1000;
+
+    final priceRange = _localRange ??
+        RangeValues(
+          currentFilter.minPricePerNight ?? minLimit,
+          currentFilter.maxPricePerNight ?? maxLimit,
+        );
+
+    return SizedBox.expand(
+      child: Column(
         children: [
-          Text(
-            "Filters",
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 16.0),
+            child: Text(
+              "Features",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
           ),
-          const SizedBox(height: 20),
-          // RangeSlider(values: RangeValues(0, 1000), onChanged: (rangeValues) {
-          //   campsiteNotifier.updateFilterParams(
-          //     FilterParams(priceRange: rangeValues),
-          //   );
-          // }, min: 0, max: 1000, divisions: 10, labels: RangeLabels("0", "1000")),
-
-
-          // CheckboxListTile(
-          //   title: const Text("Show only available campsites"),
-          //   value: campsiteState.filterParams.showAvailableOnly,
-          //   onChanged: (value) {
-          //     campsiteNotifier.updateFilterParams(
-          //       FilterParams(showAvailableOnly: value ?? false),
-          //     );
-          //   },
-          // ),
-          // CheckboxListTile(
-          //   title: const Text("Show campsites with amenities"),
-          //   value: campsiteState.filterParams.showWithAmenities,
-          //   onChanged: (value) {
-          //     campsiteNotifier.updateFilterParams(
-          //       FilterParams(showWithAmenities: value ?? false),
-          //     );
-          //   },
-          // ),
-          CheckboxListTile(
-            title: const Text("Show campsites with reviews"),
-            value: true,
-            onChanged: (value) {
-              // campsiteNotifier.updateFilterParams(
-              //   FilterParams(showWithReviews: value ?? false),
-              // );
-            },
+          const Divider(height: 1),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 20),
+                  RangeSlider(
+                    values: priceRange,
+                    onChanged: (range) {
+                      setState(() => _localRange = range);
+                    },
+                    onChangeEnd: (range) {
+                      campsiteNotifier.applyFilter(
+                        currentFilter.copyWith(
+                          minPricePerNight: range.start,
+                          maxPricePerNight: range.end,
+                        ),
+                      );
+                    },
+                    min: minLimit,
+                    max: maxLimit,
+                    divisions: 20,
+                    labels: RangeLabels(
+                      "${priceRange.start.toInt()}€",
+                      "${priceRange.end.toInt()}€",
+                    ),
+                  ),
+                  DropdownButtonFormField<CampsiteSortBy>(
+                    value: currentFilter.sortBy,
+                    decoration: const InputDecoration(
+                      labelText: "Sort by",
+                      border: OutlineInputBorder(),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                    ),
+                    items: const [
+                      DropdownMenuItem(
+                        value: CampsiteSortBy.lowestPrice,
+                        child: Text("Lowest Price"),
+                      ),
+                      DropdownMenuItem(
+                        value: CampsiteSortBy.highestPrice,
+                        child: Text("Highest Price"),
+                      ),
+                      DropdownMenuItem(
+                        value: CampsiteSortBy.older,
+                        child: Text("Older"),
+                      ),
+                      DropdownMenuItem(
+                        value: CampsiteSortBy.newer,
+                        child: Text("Newer"),
+                      ),
+                    ],
+                    onChanged: (value) {
+                      if (value != null) {
+                        ref.read(campsiteNotifierProvider.notifier).applyFilter(
+                              currentFilter.copyWith(sortBy: value),
+                            );
+                      }
+                    },
+                  ),
+                  _buildCheckbox("Close to Water", closeToWater, (val) => closeToWater = val ?? false),
+                  _buildCheckbox("Campfires", campfires, (val) => campfires = val ?? false),
+                  const SizedBox(height: 20),
+                  const Text("Languages", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  Wrap(
+                    spacing: 8,
+                    children: [
+                      _buildLanguageChip("en", "English"),
+                      _buildLanguageChip("de", "German"),
+                    ],
+                  ),
+                  const SizedBox(height: 100), // padding so content doesn't hide under button
+                ],
+              ),
+            ),
           ),
-          // Add more filter options as needed
+          Container(
+            color: Colors.white,
+            padding: const EdgeInsets.all(12),
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: () {},
+                icon: const Icon(Icons.refresh),
+                label: const Text("Reset Filters"),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.redAccent,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
+    );
+  }
+
+  void _apply() {
+    ref.read(campsiteNotifierProvider.notifier).applyFilter(
+          FilterParams(
+            isCloseToWater: closeToWater,
+            isCampFireAllowed: campfires,
+            hostLanguages: selectedLanguages.toList(),
+          ),
+        );
+  }
+
+  Widget _buildCheckbox(String title, bool value, ValueChanged<bool?> onChanged) {
+    return CheckboxListTile(
+      title: Text(title),
+      value: value,
+      onChanged: (val) {
+        setState(() => onChanged(val));
+        _apply();
+      },
+    );
+  }
+
+  Widget _buildLanguageChip(String langCode, String label) {
+    final isSelected = selectedLanguages.contains(langCode);
+    return FilterChip(
+      label: Text(label),
+      selected: isSelected,
+      onSelected: (selected) {
+        setState(() {
+          if (selected) {
+            selectedLanguages.add(langCode);
+          } else {
+            selectedLanguages.remove(langCode);
+          }
+          _apply();
+        });
+      },
     );
   }
 }

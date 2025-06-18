@@ -2,7 +2,14 @@ import '../../domain/entities/campsite_params.dart';
 import 'campsite_model.dart';
 
 extension CampsiteModelMapper on CampsiteModel {
-  CampsiteParams toEntity({String? cityName, required double latitude, required double longitude, required double pricePerNight, String? countryName}) {
+  CampsiteParams toEntity({
+    String? cityName,
+    required double latitude,
+    required double longitude,
+    required double pricePerNight,
+    String? countryName,
+    required DateTime createdAt,
+  }) {
     return CampsiteParams(
       id: id,
       label: label,
@@ -13,6 +20,7 @@ extension CampsiteModelMapper on CampsiteModel {
       isCampFireAllowed: isCampFireAllowed,
       pricePerNight: pricePerNight,
       hostLanguages: hostLanguages,
+      createdAt: createdAt,
     );
   }
 }
