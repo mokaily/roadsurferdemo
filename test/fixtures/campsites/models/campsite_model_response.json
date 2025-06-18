@@ -1,0 +1,15 @@
+{
+  "id": "1",
+  "label": "Mountain View",
+  "photo": "https://example.com/photo.jpg",
+  "geoLocation": {
+    "lat": 50.0,
+    "long": 20.0
+  },
+  "isCloseToWater": true,
+  "isCampFireAllowed": false,
+  "hostLanguages": ["en", "de"],
+  "pricePerNight": 9999.00,
+  "suitableFor": ["families", "hikers"],
+  "createdAt": "2024-01-01T00:00:00.000Z"
+}

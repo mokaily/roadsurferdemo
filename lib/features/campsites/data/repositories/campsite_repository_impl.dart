@@ -1,4 +1,4 @@
-import '../../../../core/utils/normalizers.dart';
+import '../../../../core/utils/helpers.dart';
 import '../../domain/entities/campsite_params.dart';
 import '../../domain/repositories/campsite_repository.dart';
 import '../data_sources/campsite_remote_data_source.dart';

@@ -48,11 +48,22 @@ class _CampCardWidgetState extends ConsumerState<CampCardWidget> {
               children: [
                 Container(
                   height: 150,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                    image: DecorationImage(
-                      image: NetworkImage(widget.campsite!.photo),
+                  alignment: Alignment.center,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      widget.campsite!.photo,
                       fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: 150,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          'assets/icon.png',
+                          fit: BoxFit.contain,
+                          alignment: Alignment.center,
+                          width: 220,
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -68,8 +79,9 @@ class _CampCardWidgetState extends ConsumerState<CampCardWidget> {
                           style: DefaultTextStyle.of(context).style,
                           children: <TextSpan>[
                             TextSpan(
-                                text: widget.campsite?.pricePerNight.toStringAsFixed(2),
-                                style: const TextStyle(fontWeight: FontWeight.bold)),
+                              text: widget.campsite?.pricePerNight.toStringAsFixed(2),
+                              style: const TextStyle(fontWeight: FontWeight.bold),
+                            ),
                             const TextSpan(text: " / night"),
                           ],
                         ),
@@ -77,8 +89,11 @@ class _CampCardWidgetState extends ConsumerState<CampCardWidget> {
                       Text(
                         widget.campsite!.label.capitalize(),
                         maxLines: 1,
-                        style:
-                            const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                       const SizedBox(height: 5),
                       SingleChildScrollView(
@@ -91,7 +106,9 @@ class _CampCardWidgetState extends ConsumerState<CampCardWidget> {
                             children: [
                               if (widget.campsite!.isCloseToWater)
                                 const CampFeaturesWidget(
-                                    feature: "Close to Water", iconPath: 'assets/water.png'),
+                                  feature: "Close to Water",
+                                  iconPath: 'assets/water.png',
+                                ),
                               if (widget.campsite!.isCampFireAllowed)
                                 const CampFeaturesWidget(feature: "Campfires", iconPath: 'assets/fire.png'),
                             ],
@@ -101,7 +118,7 @@ class _CampCardWidgetState extends ConsumerState<CampCardWidget> {
                       LanguageChipsWidget(hostLanguages: widget.campsite!.hostLanguages),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),
