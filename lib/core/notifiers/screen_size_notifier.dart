@@ -7,7 +7,7 @@ class ScreenSizeNotifier extends ChangeNotifier {
 
   void updateSize(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final newIsDesktop = width > 600;
+    final newIsDesktop = width > 720;
 
     if (_isDesktop != newIsDesktop) {
       _isDesktop = newIsDesktop;

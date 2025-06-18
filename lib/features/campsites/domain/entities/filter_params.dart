@@ -5,7 +5,7 @@ class FilterParams extends Equatable {
   final bool? isCampFireAllowed;
   final double? minPricePerNight;
   final double? maxPricePerNight;
-  final String? cityName;
+  final String? address;
   final List<String>? hostLanguages;
 
   const FilterParams({
@@ -13,11 +13,11 @@ class FilterParams extends Equatable {
     this.isCampFireAllowed,
     this.minPricePerNight,
     this.maxPricePerNight,
-    this.cityName,
+    this.address,
     this.hostLanguages,
   });
 
   @override
   List<Object?> get props =>
-      [isCloseToWater, cityName, isCampFireAllowed, minPricePerNight, maxPricePerNight, hostLanguages];
+      [isCloseToWater, address, isCampFireAllowed, minPricePerNight, maxPricePerNight, hostLanguages];
 }

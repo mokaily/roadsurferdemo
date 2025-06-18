@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roadsurferdemo/core/utils/constants.dart';
 import 'package:roadsurferdemo/features/campsites/data/data_sources/geocoding_remote_data_source.dart';
 import 'package:roadsurferdemo/features/campsites/domain/use_cases/get_all_campsites_use_case.dart';
 import '../../../../core/providers/dio_provider.dart';
+import 'core/themes/themes.dart';
 import 'features/campsites/data/data_sources/campsite_remote_data_source.dart';
 import 'features/campsites/data/data_sources/campsite_remote_data_source_impl.dart';
 import 'features/campsites/data/data_sources/geocoding_remote_data_source_impl.dart';
@@ -42,4 +44,3 @@ final campsiteNotifierProvider = StateNotifierProvider<CampsiteNotifier, Campsit
     );
   },
 );
-

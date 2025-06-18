@@ -12,6 +12,7 @@ class Themes {
     useMaterial3: false,
     fontFamily: 'EncodeSans',
     primaryColor: ColorPalettes.primary,
+    primaryColorDark: ColorPalettes.secondary,
     scaffoldBackgroundColor: Colors.white,
     dividerColor: const Color(0xffEAECF0),
     shadowColor: ColorPalettes.secondary.withValues(alpha: 120),
@@ -47,7 +48,28 @@ class Themes {
         surfaceTintColor: const WidgetStatePropertyAll(Colors.white),
       ),
     ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: Colors.white,
+      foregroundColor: ColorPalettes.secondary,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+      focusColor: Colors.transparent,
+      elevation: 0,
+      focusElevation: 0,
+      hoverElevation: 0,
+      splashColor: Colors.transparent,
+      highlightElevation: 0,
+    ),
+    searchBarTheme: SearchBarThemeData(
+      elevation: const WidgetStatePropertyAll(3),
+      backgroundColor: WidgetStatePropertyAll(Colors.white),
+      shadowColor: WidgetStatePropertyAll(Colors.white),
+      overlayColor: WidgetStatePropertyAll(Colors.white),
+      // textStyle: TextStyle(
+      //   fontWeight: FontWeight.w500,
+      //   color: ColorPalettes.secondary,
+      // ),
+    ),
   );
 
-  setTheme() => Theme.of(baseContext);
+  ThemeData setTheme() => Theme.of(baseContext);
 }
