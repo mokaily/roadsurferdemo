@@ -96,31 +96,34 @@ class _CampsitesPageState extends ConsumerState<CampsitesPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (sizeProvider.isDesktop) const SizedBox(width: 300, child: FiltersScreen()),
-                    Expanded(
-                      child: ScrollConfiguration(
-                        behavior: const MaterialScrollBehavior().copyWith(
-                          dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse},
-                        ),
-                        child: CustomScrollView(
-                          shrinkWrap: true,
-                          slivers: [
-                            if (sizeProvider.isDesktop) const SliverToBoxAdapter(child: SubHeaderWidget()),
-                            SliverPersistentHeader(pinned: true, delegate: _StickySearchFilterBar()),
-                            if (isLoading) const LoadingWidget(),
-                            if (!isLoading && isNoData) const NoDataWidget(),
-                            if (!isLoading && !isNoData) ...[
-                              SliverToBoxAdapter(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
-                                  child: Text(
-                                    '${campsites.length} Campsites found',
-                                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                    Flexible(
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: ScrollConfiguration(
+                          behavior: const MaterialScrollBehavior().copyWith(
+                            dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse},
+                          ),
+                          child: CustomScrollView(
+                            shrinkWrap: true,
+                            slivers: [
+                              if (sizeProvider.isDesktop) const SliverToBoxAdapter(child: SubHeaderWidget()),
+                              SliverPersistentHeader(pinned: true, delegate: _StickySearchFilterBar()),
+                              if (isLoading) const LoadingWidget(),
+                              if (!isLoading && isNoData) const NoDataWidget(),
+                              if (!isLoading && !isNoData) ...[
+                                SliverToBoxAdapter(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
+                                    child: Text(
+                                      '${campsites.length} Campsites found',
+                                      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              CampGridViewWidget(campsite: campsites),
+                                CampGridViewWidget(campsite: campsites),
+                              ],
                             ],
-                          ],
+                          ),
                         ),
                       ),
                     ),

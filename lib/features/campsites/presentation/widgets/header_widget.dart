@@ -28,12 +28,12 @@ class HeaderWidget extends ConsumerWidget {
       child: MaxWidthWrapper(
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Wrap(
+            alignment: WrapAlignment.center,
             children: [
               Text(
                 "Discover amazing campsites",
+                maxLines: 2,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: sizeProvider.isDesktop ? 45 : 36,
