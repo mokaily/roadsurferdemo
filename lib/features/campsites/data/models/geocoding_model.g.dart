@@ -13,7 +13,4 @@ GeoCodingModel _$GeoCodingModelFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$GeoCodingModelToJson(GeoCodingModel instance) =>
-    <String, dynamic>{
-      'city': instance.city,
-      'country': instance.country,
-    };
+    <String, dynamic>{'city': instance.city, 'country': instance.country};

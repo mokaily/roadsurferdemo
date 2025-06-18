@@ -3,7 +3,7 @@ import 'geo_location_model.dart';
 
 part 'campsite_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class CampsiteModel {
   final String id;
   final String label;

@@ -32,4 +32,32 @@ class CampsiteParams extends Equatable {
     id, label, photo, latitude, longitude, isCloseToWater,
     isCampFireAllowed, pricePerNight, hostLanguages, address, createdAt
   ];
+
+  CampsiteParams copyWith({
+    String? id,
+    String? label,
+    String? address,
+    String? photo,
+    double? latitude,
+    double? longitude,
+    bool? isCloseToWater,
+    bool? isCampFireAllowed,
+    double? pricePerNight,
+    List<String>? hostLanguages,
+    DateTime? createdAt,
+  }) {
+    return CampsiteParams(
+      id: id ?? this.id,
+      label: label ?? this.label,
+      address: address ?? this.address,
+      photo: photo ?? this.photo,
+      latitude: latitude ?? this.latitude,
+      longitude: longitude ?? this.longitude,
+      isCloseToWater: isCloseToWater ?? this.isCloseToWater,
+      isCampFireAllowed: isCampFireAllowed ?? this.isCampFireAllowed,
+      pricePerNight: pricePerNight ?? this.pricePerNight,
+      hostLanguages: hostLanguages ?? this.hostLanguages,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
 }
