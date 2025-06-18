@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/themes/themes.dart';
-import '../../../../core/utils/constants.dart';
+import '../../../../../core/themes/themes.dart';
+import '../../../../../core/utils/constants.dart';
 
 class LanguageChipsWidget extends StatelessWidget {
   final List<String> hostLanguages;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../domain/entities/campsite_params.dart';
+import 'package:roadsurferdemo/features/campsites/domain/entities/campsite_params.dart';
 import 'camp_card_widget.dart';
 
 class CampGridViewWidget extends ConsumerWidget {

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roadsurferdemo/dependency_injection.dart';
+import 'package:roadsurferdemo/features/campsites/presentation/widgets/camp_card/campsites_cards_widget.dart';
 import '../../../../core/notifiers/screen_size_notifier.dart';
 import '../../../../core/providers/screen_size_provider.dart';
 import '../../../../core/widgets/app_bar_widget.dart';
 import '../../../../core/widgets/max_width_wrapper_widget.dart';
 import '../../domain/entities/campsite_params.dart';
 import '../providers/state/campsite_state.dart';
-import '../widgets/campsites_cards_widget.dart';
 import '../widgets/filter_widget.dart';
 import '../widgets/header_widget.dart';
 import '../widgets/loading_widget.dart';

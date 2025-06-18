@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:roadsurferdemo/core/themes/themes.dart';
 
-import '../../../../core/themes/themes.dart';
 
 class CampFeaturesWidget extends StatelessWidget {
   final String feature;

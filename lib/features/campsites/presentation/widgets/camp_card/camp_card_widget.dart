@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../domain/entities/campsite_params.dart';
-import 'camp_features_widget.dart';
+import '../../../domain/entities/campsite_params.dart';
 import 'language_chip_widget.dart';
 import 'package:roadsurferdemo/core/utils/extensions.dart';
+
+import 'camp_features_widget.dart';
 
 class CampCardWidget extends ConsumerStatefulWidget {
   final CampsiteParams campsite;
