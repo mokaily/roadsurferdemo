@@ -12,7 +12,8 @@ CampsiteModel _$CampsiteModelFromJson(Map<String, dynamic> json) =>
       label: json['label'] as String,
       photo: json['photo'] as String,
       geoLocation: GeoLocationModel.fromJson(
-          json['geoLocation'] as Map<String, dynamic>),
+        json['geoLocation'] as Map<String, dynamic>,
+      ),
       isCloseToWater: json['isCloseToWater'] as bool,
       isCampFireAllowed: json['isCampFireAllowed'] as bool,
       hostLanguages: (json['hostLanguages'] as List<dynamic>)
@@ -30,7 +31,7 @@ Map<String, dynamic> _$CampsiteModelToJson(CampsiteModel instance) =>
       'id': instance.id,
       'label': instance.label,
       'photo': instance.photo,
-      'geoLocation': instance.geoLocation,
+      'geoLocation': instance.geoLocation.toJson(),
       'isCloseToWater': instance.isCloseToWater,
       'isCampFireAllowed': instance.isCampFireAllowed,
       'hostLanguages': instance.hostLanguages,

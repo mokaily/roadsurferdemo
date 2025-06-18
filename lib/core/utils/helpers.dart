@@ -23,7 +23,7 @@ class Helpers {
   }
 
   static DateTime formattingDate(String date) {
-    final DateTime parsed = DateTime.parse(date).toLocal();
+    final DateTime parsed = DateTime.parse(date).toUtc();
     final String formatted = Constants.dateFormat.format(parsed);
     return Constants.dateFormat.parse(formatted);
   }

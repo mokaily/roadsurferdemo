@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:roadsurferdemo/features/campsites/data/models/geocoding_model.dart';
-import '../../../../core/utils/normalizers.dart';
+import '../../../../core/utils/helpers.dart';
 import 'geocoding_remote_data_source.dart';
 
 class GeocodingRemoteDataSourceImpl implements GeocodingRemoteDataSource {

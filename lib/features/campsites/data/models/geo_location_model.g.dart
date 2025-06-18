@@ -13,7 +13,4 @@ GeoLocationModel _$GeoLocationModelFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$GeoLocationModelToJson(GeoLocationModel instance) =>
-    <String, dynamic>{
-      'lat': instance.lat,
-      'long': instance.lng,
-    };
+    <String, dynamic>{'lat': instance.lat, 'long': instance.lng};
