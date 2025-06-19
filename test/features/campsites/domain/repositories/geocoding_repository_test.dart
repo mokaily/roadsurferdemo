@@ -15,30 +15,30 @@ void main() {
   });
 
   group('GeocodingRepository contract', () {
-    // test('should return city name from coordinates', () async {
-    //   // arrange
-    //   when(
-    //     mockRepository.getCityNameFromCoordinates(
-    //       latitude: TestConstants.tLat,
-    //       longitude: TestConstants.tLng,
-    //     ),
-    //   ).thenAnswer((_) async => TestConstants.tCityName);
-    //
-    //   // act
-    //   final result = await mockRepository.getCityNameFromCoordinates(
-    //     latitude: TestConstants.tLat,
-    //     longitude: TestConstants.tLng,
-    //   );
-    //
-    //   // assert
-    //   expect(result, TestConstants.tCityName);
-    //   verify(
-    //     mockRepository.getCityNameFromCoordinates(
-    //       latitude: TestConstants.tLat,
-    //       longitude: TestConstants.tLng,
-    //     ),
-    //   ).called(1);
-    // });
+    test('should return city name from coordinates', () async {
+      // arrange
+      when(
+        mockRepository.getCityNameFromCoordinates(
+          latitude: TestConstants.tLat,
+          longitude: TestConstants.tLng,
+        ),
+      ).thenAnswer((_) async => TestConstants.tGeoCodingModel);
+
+      // act
+      final result = await mockRepository.getCityNameFromCoordinates(
+        latitude: TestConstants.tLat,
+        longitude: TestConstants.tLng,
+      );
+
+      // assert
+      expect(result, TestConstants.tGeoCodingModel);
+      verify(
+        mockRepository.getCityNameFromCoordinates(
+          latitude: TestConstants.tLat,
+          longitude: TestConstants.tLng,
+        ),
+      ).called(1);
+    });
 
     test('should throw if an error occurs', () async {
       // arrange
