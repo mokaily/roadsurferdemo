@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roadsurferdemo/core/utils/extensions.dart';
 import 'package:roadsurferdemo/features/campsites/domain/entities/campsite_params.dart';
 import 'package:roadsurferdemo/features/campsites/domain/entities/geocoding_params.dart';
+import 'package:roadsurferdemo/l10n/app_localizations.dart';
 
 class CampDetailsWidget extends ConsumerWidget {
   final CampsiteParams? campsite;
@@ -48,9 +49,9 @@ class CampDetailsWidget extends ConsumerWidget {
                 "€ ${campsite?.pricePerNight.toStringAsFixed(2)}",
                 style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
               ),
-              const Padding(
-                padding: EdgeInsets.all(4.0),
-                child: Text("per night", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+              Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text(AppLocalizations.of(context)!.d_per_night, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
               ),
             ],
           ),

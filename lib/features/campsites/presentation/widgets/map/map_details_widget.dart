@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:roadsurferdemo/features/campsites/domain/entities/campsite_params.dart';
 import 'package:roadsurferdemo/features/campsites/domain/entities/geocoding_params.dart';
+import 'package:roadsurferdemo/l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MapDetailsWidget extends StatefulWidget {
@@ -53,13 +54,13 @@ class _MapDetailsWidgetState extends State<MapDetailsWidget> {
                         widget.campAddress!.city.length > 14 ? 15 : widget.campAddress?.city.length,
                       ),
                       style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontSize: Theme.of(context).textTheme.headlineSmall!.fontSize! - 2,
+                        fontSize: Theme.of(context).textTheme.headlineSmall!.fontSize!,
                       ),
                     ),
                     Text(
                       "${widget.campAddress?.city}, ${widget.campAddress?.country}",
                       style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        fontSize: Theme.of(context).textTheme.labelSmall!.fontSize! - 2,
+                        fontSize: Theme.of(context).textTheme.labelSmall!.fontSize!,
                       ),
                     ),
                   ],
@@ -71,10 +72,10 @@ class _MapDetailsWidgetState extends State<MapDetailsWidget> {
                     );
                   },
                   child: Text(
-                    "View larger map",
+                    AppLocalizations.of(context)!.m_view_larger_map,
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
                       color: Colors.blue,
-                      fontSize: Theme.of(context).textTheme.labelSmall!.fontSize! - 2,
+                      fontSize: Theme.of(context).textTheme.labelSmall!.fontSize!,
                     ),
                   ),
                 ),
@@ -91,16 +92,16 @@ class _MapDetailsWidgetState extends State<MapDetailsWidget> {
                   color: Colors.white,
                   border: Border.all(color: Colors.grey.shade400, width: 0.5),
                 ),
-                message: "Get directions on this location on\nGoogle Maps.",
+                message: AppLocalizations.of(context)!.m_get_directions,
                 waitDuration: const Duration(milliseconds: 300),
                 textStyle: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  fontSize: Theme.of(context).textTheme.labelSmall!.fontSize! - 2,
+                  fontSize: Theme.of(context).textTheme.labelSmall!.fontSize!,
                 ),
                 child: Column(
                   children: [
                     const Icon(Icons.directions, color: Colors.blue, size: 25),
                     Text(
-                      "Directions",
+                      AppLocalizations.of(context)!.m_directions,
                       style: Theme.of(context).textTheme.labelSmall?.copyWith(
                         color: Colors.blue,
                         fontSize: Theme.of(context).textTheme.labelSmall!.fontSize! - 2,

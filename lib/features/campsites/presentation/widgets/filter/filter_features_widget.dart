@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roadsurferdemo/features/campsites/domain/entities/filter_params.dart';
 import 'package:roadsurferdemo/features/campsites/presentation/providers/state/campsite_state.dart';
+import 'package:roadsurferdemo/l10n/app_localizations.dart';
 import '../../../../../dependency_injection.dart';
 import 'filter_check_box_tile_widget.dart';
 
@@ -49,16 +50,16 @@ class _CampCardWidgetState extends ConsumerState<FilterFeaturesWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Features",
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+        Text(
+          AppLocalizations.of(context)!.f_features,
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
         FilterCheckboxTile(
           onChanged: (value) => setState(() {
             closeToWater = value ?? false;
             _apply();
           }),
-          title: "Close to Water",
+          title: AppLocalizations.of(context)!.f_close_to_water,
           value: closeToWater,
         ),
         FilterCheckboxTile(
@@ -66,7 +67,7 @@ class _CampCardWidgetState extends ConsumerState<FilterFeaturesWidget> {
             campfires = value ?? false;
             _apply();
           }),
-          title: "Campfires Allowed",
+          title: AppLocalizations.of(context)!.f_camp_fires_allowed,
           value: campfires,
         ),
         const SizedBox(height: 10),

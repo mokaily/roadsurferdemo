@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:roadsurferdemo/l10n/app_localizations.dart';
 import '../../../../../dependency_injection.dart';
 
 class FilterResetButtonWidget extends ConsumerStatefulWidget {
@@ -29,7 +30,7 @@ class _CampCardWidgetState extends ConsumerState<FilterResetButtonWidget> {
             campsiteNotifier.resetFilters();
           },
           icon: const Icon(Icons.refresh),
-          label: const Text("Reset Filters"),
+          label: Text(AppLocalizations.of(context)!.f_reset_filters),
         ),
       ),
     );

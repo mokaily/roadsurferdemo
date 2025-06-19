@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roadsurferdemo/core/notifiers/screen_size_notifier.dart';
 import 'package:roadsurferdemo/core/providers/screen_size_provider.dart';
 import 'package:roadsurferdemo/core/widgets/max_width_wrapper_widget.dart';
+import 'package:roadsurferdemo/l10n/app_localizations.dart';
 
 class HeaderWidget extends ConsumerWidget {
   const HeaderWidget({super.key});
@@ -30,7 +31,7 @@ class HeaderWidget extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "Discover amazing campsites",
+                AppLocalizations.of(context)!.g_header_title,
                 maxLines: 2,
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -38,13 +39,13 @@ class HeaderWidget extends ConsumerWidget {
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
-              if (sizeProvider.isDesktop) ...const [
-                SizedBox(height: 8),
+              if (sizeProvider.isDesktop) ...[
+                const SizedBox(height: 8),
                 Text(
-                  "Discover from wonderful variety of amazing campsites..",
-                  style: TextStyle(fontSize: 16, color: Colors.white70),
+                  AppLocalizations.of(context)!.g_header_subtitle,
+                  style: const TextStyle(fontSize: 16, color: Colors.white70),
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
               ]
             ],
           ),

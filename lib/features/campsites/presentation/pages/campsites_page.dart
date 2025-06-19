@@ -15,6 +15,7 @@ import 'package:roadsurferdemo/features/campsites/presentation/widgets/loading_w
 import 'package:roadsurferdemo/features/campsites/presentation/widgets/no_data_widget.dart';
 import 'package:roadsurferdemo/features/campsites/presentation/widgets/search_widget.dart';
 import 'package:roadsurferdemo/features/campsites/presentation/widgets/subheader_widget.dart';
+import 'package:roadsurferdemo/l10n/app_localizations.dart';
 
 class CampsitesPage extends ConsumerStatefulWidget {
   const CampsitesPage({super.key});
@@ -117,7 +118,7 @@ class _CampsitesPageState extends ConsumerState<CampsitesPage> {
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
                                     child: Text(
-                                      '${campsites.length} Campsites found',
+                                      '${campsites.length} ${AppLocalizations.of(context)!.g_campsite_found}',
                                       style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                                     ),
                                   ),
