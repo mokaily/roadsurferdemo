@@ -1,16 +1,49 @@
-# roadsurferdemo
+# Roadsurfer Demo Project.
 
-roadsurfer demo project.
+Roadsurfer Demo Project.
 
-## Getting Started
+# Final Architecture
 
-This project is a starting point for a Flutter application.
+<img src="https://i1.wp.com/resocoder.com/wp-content/uploads/2019/08/Clean-Architecture-Flutter-Diagram.png">
 
-A few resources to get you started if this is your first Flutter project:
+## Required Folder Structure.
+```
+├───lib/
+│   ├───core/
+│   ├───features/
+│   │   └───capmsites/
+│   │       ├───data/
+│   │       │   ├───data_sources/
+│   │       │   ├───models/
+│   │       │   └───repositories/
+│   │       ├───domain/
+│   │       │   ├───entities/
+│   │       │   ├───enuma/
+│   │       │   ├───repositories/
+│   │       │   └───use_cases/
+│   │       └───presentation/
+│   │           ├───providers/
+│   │           ├───pages/
+│   │           └───widgets/
+.   └───main.dart
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Simple Demonstration of Folder Structure as per Clean Architecture
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Generated mock classes
+
+Generate the mocks running one of the following commands:
+
+```
+flutter pub run build_runner build
+``` 
+
+``` 
+flutter pub run build_runner build --delete-conflicting-outputs
+```
+
+# Generate translation
+
+```
+flutter gen-l10n
+``` 
