@@ -99,7 +99,14 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
 
   void applyFilter(FilterParams params) {
     state = const CampsiteState.filterLoading();
+
+    if (params.isCloseToWater != null && params.isCampFireAllowed != null) {
+      if (!params.isCloseToWater! && !params.isCampFireAllowed!) {
+        params = params.copyWith(isCloseToWater: null, isCampFireAllowed: null);
+      }
+    }
     filterParams = params;
+
     final filtered =
         (filteredCampsites.isEmpty || searchController.text.isEmpty ? campsites : filteredCampsites).where((
           camp,

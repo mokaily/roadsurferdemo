@@ -28,41 +28,49 @@ class FilterParams extends Equatable {
 
   @override
   List<Object?> get props => [
-        isCloseToWater,
-        address,
-        isCampFireAllowed,
-        minPricePerNight,
-        maxPricePerNight,
-        hostLanguages,
-        availableLanguages,
-        highestPricePerNight,
-        lowestMinPricePerNight,
-        sortBy
-      ];
+    isCloseToWater,
+    isCampFireAllowed,
+    minPricePerNight,
+    maxPricePerNight,
+    lowestMinPricePerNight,
+    highestPricePerNight,
+    address,
+    hostLanguages,
+    availableLanguages,
+    sortBy,
+  ];
 
   FilterParams copyWith({
-    double? minPricePerNight,
-    double? maxPricePerNight,
-    double? lowestMinPricePerNight,
-    double? highestPricePerNight,
-    bool? isCloseToWater,
-    bool? isCampFireAllowed,
-    String? address,
-    List<String>? hostLanguages,
-    List<String>? availableLanguages,
-    CampsiteSortBy? sortBy,
+    Object? isCloseToWater = _sentinel,
+    Object? isCampFireAllowed = _sentinel,
+    Object? minPricePerNight = _sentinel,
+    Object? maxPricePerNight = _sentinel,
+    Object? lowestMinPricePerNight = _sentinel,
+    Object? highestPricePerNight = _sentinel,
+    Object? address = _sentinel,
+    Object? hostLanguages = _sentinel,
+    Object? availableLanguages = _sentinel,
+    Object? sortBy = _sentinel,
   }) {
     return FilterParams(
-      minPricePerNight: minPricePerNight ?? this.minPricePerNight,
-      maxPricePerNight: maxPricePerNight ?? this.maxPricePerNight,
-      lowestMinPricePerNight: lowestMinPricePerNight ?? this.lowestMinPricePerNight,
-      highestPricePerNight: highestPricePerNight ?? this.highestPricePerNight,
-      isCloseToWater: isCloseToWater ?? this.isCloseToWater,
-      isCampFireAllowed: isCampFireAllowed ?? this.isCampFireAllowed,
-      address: address ?? this.address,
-      hostLanguages: hostLanguages ?? this.hostLanguages,
-      availableLanguages: availableLanguages ?? this.availableLanguages,
-      sortBy: sortBy ?? this.sortBy,
+      isCloseToWater: isCloseToWater != _sentinel ? isCloseToWater as bool? : this.isCloseToWater,
+      isCampFireAllowed: isCampFireAllowed != _sentinel ? isCampFireAllowed as bool? : this.isCampFireAllowed,
+      minPricePerNight: minPricePerNight != _sentinel ? minPricePerNight as double? : this.minPricePerNight,
+      maxPricePerNight: maxPricePerNight != _sentinel ? maxPricePerNight as double? : this.maxPricePerNight,
+      lowestMinPricePerNight: lowestMinPricePerNight != _sentinel
+          ? lowestMinPricePerNight as double?
+          : this.lowestMinPricePerNight,
+      highestPricePerNight: highestPricePerNight != _sentinel
+          ? highestPricePerNight as double?
+          : this.highestPricePerNight,
+      address: address != _sentinel ? address as String? : this.address,
+      hostLanguages: hostLanguages != _sentinel ? hostLanguages as List<String>? : this.hostLanguages,
+      availableLanguages: availableLanguages != _sentinel
+          ? availableLanguages as List<String>?
+          : this.availableLanguages,
+      sortBy: sortBy != _sentinel ? sortBy as CampsiteSortBy? : this.sortBy,
     );
   }
+
+  static const _sentinel = Object();
 }
