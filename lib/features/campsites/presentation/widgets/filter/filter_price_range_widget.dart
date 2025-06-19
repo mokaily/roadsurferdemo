@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roadsurferdemo/features/campsites/domain/entities/filter_params.dart';
 import 'package:roadsurferdemo/features/campsites/presentation/providers/state/campsite_state.dart';
+import 'package:roadsurferdemo/l10n/app_localizations.dart';
 import '../../../../../dependency_injection.dart';
 
 class FilterPriceRangeWidget extends ConsumerStatefulWidget {
@@ -47,9 +48,9 @@ class _CampCardWidgetState extends ConsumerState<FilterPriceRangeWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Price Range",
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+        Text(
+          AppLocalizations.of(context)!.f_price_range,
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
         RangeSlider(
           values: priceRange,

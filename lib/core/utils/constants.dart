@@ -7,9 +7,14 @@ class Constants {
 
   static const Map<String, String> kSupportedLanguages = {'en': 'EN', 'de': 'DE'};
 
-  static const Map<String, String> languageLabels = {
+  static const Map<String, String> languageLabelsEnglish = {
     'en': 'English',
     'de': 'German',
+  };
+
+  static const Map<String, String> languageLabelsGerman = {
+    'en': 'Englisch',
+    'de': 'Deutsch',
   };
 
   static DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');

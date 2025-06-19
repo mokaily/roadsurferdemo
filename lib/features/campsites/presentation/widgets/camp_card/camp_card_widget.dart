@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roadsurferdemo/features/campsites/presentation/pages/campsite_details_page.dart';
+import 'package:roadsurferdemo/l10n/app_localizations.dart';
 import '../../../domain/entities/campsite_params.dart';
 import 'language_chip_widget.dart';
 import 'package:roadsurferdemo/core/utils/extensions.dart';
@@ -113,12 +114,15 @@ class _CampCardWidgetState extends ConsumerState<CampCardWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               if (widget.campsite!.isCloseToWater)
-                                const CampFeaturesWidget(
-                                  feature: "Close to Water",
+                                CampFeaturesWidget(
+                                  feature: AppLocalizations.of(context)!.f_close_to_water,
                                   iconPath: 'assets/water.png',
                                 ),
                               if (widget.campsite!.isCampFireAllowed)
-                                const CampFeaturesWidget(feature: "Campfires", iconPath: 'assets/fire.png'),
+                                CampFeaturesWidget(
+                                  feature: AppLocalizations.of(context)!.f_camp_fires_allowed,
+                                  iconPath: 'assets/fire.png',
+                                ),
                             ],
                           ),
                         ),

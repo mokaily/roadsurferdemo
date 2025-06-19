@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roadsurferdemo/features/campsites/presentation/widgets/filter/filter_price_range_widget.dart';
 import 'package:roadsurferdemo/features/campsites/presentation/widgets/filter/filter_reset_button_widget.dart';
 import 'package:roadsurferdemo/features/campsites/presentation/widgets/filter/filter_sort_by_widget.dart';
+import 'package:roadsurferdemo/l10n/app_localizations.dart';
 import 'filter_features_widget.dart';
 import 'filter_language_widget.dart';
 
@@ -42,11 +43,11 @@ class _CampCardWidgetState extends ConsumerState<FiltersScreen> {
         ),
         child: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: Text(
-                "Filters",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                AppLocalizations.of(context)!.f_filters,
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
             const Divider(height: 1),

@@ -101,17 +101,173 @@ abstract class AppLocalizations {
   /// **'Roadsurfer Demo'**
   String get appTitle;
 
-  /// No description provided for @campsitesTitle.
+  /// No description provided for @f_filters.
   ///
   /// In en, this message translates to:
-  /// **'Campsites'**
-  String get campsitesTitle;
+  /// **'Filters'**
+  String get f_filters;
 
-  /// No description provided for @detailsTitle.
+  /// No description provided for @f_price_range.
   ///
   /// In en, this message translates to:
-  /// **'Details'**
-  String get detailsTitle;
+  /// **'Price Range'**
+  String get f_price_range;
+
+  /// No description provided for @f_sort_by.
+  ///
+  /// In en, this message translates to:
+  /// **'Sort By'**
+  String get f_sort_by;
+
+  /// No description provided for @f_lowest_price.
+  ///
+  /// In en, this message translates to:
+  /// **'Lowest Price'**
+  String get f_lowest_price;
+
+  /// No description provided for @f_highest_price.
+  ///
+  /// In en, this message translates to:
+  /// **'Highest Price'**
+  String get f_highest_price;
+
+  /// No description provided for @f_older.
+  ///
+  /// In en, this message translates to:
+  /// **'Older'**
+  String get f_older;
+
+  /// No description provided for @f_newer.
+  ///
+  /// In en, this message translates to:
+  /// **'Newer'**
+  String get f_newer;
+
+  /// No description provided for @f_features.
+  ///
+  /// In en, this message translates to:
+  /// **'Features'**
+  String get f_features;
+
+  /// No description provided for @f_close_to_water.
+  ///
+  /// In en, this message translates to:
+  /// **'Close To Water'**
+  String get f_close_to_water;
+
+  /// No description provided for @f_camp_fires_allowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Campfires Allowed'**
+  String get f_camp_fires_allowed;
+
+  /// No description provided for @f_languages.
+  ///
+  /// In en, this message translates to:
+  /// **'Languages'**
+  String get f_languages;
+
+  /// No description provided for @f_english.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get f_english;
+
+  /// No description provided for @f_german.
+  ///
+  /// In en, this message translates to:
+  /// **'German'**
+  String get f_german;
+
+  /// No description provided for @f_reset_filters.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Filters'**
+  String get f_reset_filters;
+
+  /// No description provided for @g_header_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Find Your Perfect Campsite'**
+  String get g_header_title;
+
+  /// No description provided for @g_header_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Thousands of campsites. One unforgettable adventure.'**
+  String get g_header_subtitle;
+
+  /// No description provided for @g_sub_header_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore Nature Like Never Before'**
+  String get g_sub_header_title;
+
+  /// No description provided for @g_sub_header_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose what matters to you — and we’ll show you where to go.'**
+  String get g_sub_header_subtitle;
+
+  /// No description provided for @g_search_campsites.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Campsites'**
+  String get g_search_campsites;
+
+  /// No description provided for @g_no_data.
+  ///
+  /// In en, this message translates to:
+  /// **'No campsites found — let’s try something else!'**
+  String get g_no_data;
+
+  /// No description provided for @g_campsite_found.
+  ///
+  /// In en, this message translates to:
+  /// **'Campsites found'**
+  String get g_campsite_found;
+
+  /// No description provided for @g_night.
+  ///
+  /// In en, this message translates to:
+  /// **' / Night'**
+  String get g_night;
+
+  /// No description provided for @m_view_larger_map.
+  ///
+  /// In en, this message translates to:
+  /// **'View larger map'**
+  String get m_view_larger_map;
+
+  /// No description provided for @m_get_directions.
+  ///
+  /// In en, this message translates to:
+  /// **'Get directions on this location on\nGoogle Maps.'**
+  String get m_get_directions;
+
+  /// No description provided for @m_directions.
+  ///
+  /// In en, this message translates to:
+  /// **'Directions'**
+  String get m_directions;
+
+  /// No description provided for @d_per_night.
+  ///
+  /// In en, this message translates to:
+  /// **'per night'**
+  String get d_per_night;
+
+  /// No description provided for @d_supported.
+  ///
+  /// In en, this message translates to:
+  /// **'Supported'**
+  String get d_supported;
+
+  /// No description provided for @d_highly_rated.
+  ///
+  /// In en, this message translates to:
+  /// **'Highly Rated'**
+  String get d_highly_rated;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:roadsurferdemo/l10n/app_localizations.dart';
 
 class SubHeaderWidget extends ConsumerWidget {
   const SubHeaderWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Discover amazing campsites",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            AppLocalizations.of(context)!.g_sub_header_title,
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
-            "Use filters on the left to refine your search.",
-            style: TextStyle(fontSize: 16, color: Colors.grey),
+            AppLocalizations.of(context)!.g_sub_header_subtitle,
+            style: const TextStyle(fontSize: 16, color: Colors.grey),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
         ],
       ),
     );
