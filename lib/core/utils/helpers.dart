@@ -10,7 +10,10 @@ class Helpers {
     return double.parse('$beforeDot.$afterDot');
   }
 
-  static bool validateLatLong({required double lat, required double long}) {
+  static bool validateLatLong({required double? lat, required double? long}) {
+    if(lat == null || long == null) {
+      return false;
+    }
     return (lat >= -90 && lat <= 90) && (long >= -180 && long <= 180);
   }
 

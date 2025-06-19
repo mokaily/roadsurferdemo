@@ -1,6 +1,8 @@
+import '../entities/geocoding_params.dart';
+
 abstract class GeocodingRepository {
-  Future<String> getCityNameFromCoordinates({
-    required double latitude,
-    required double longitude,
+  Future<GeoCodingParams?> getCityNameFromCoordinates({
+    required double? latitude,
+    required double? longitude,
   });
 }

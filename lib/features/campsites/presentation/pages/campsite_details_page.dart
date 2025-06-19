@@ -1,33 +1,38 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roadsurferdemo/dependency_injection.dart';
+import 'package:roadsurferdemo/features/campsites/domain/entities/geocoding_params.dart';
+import 'package:roadsurferdemo/features/campsites/presentation/widgets/camp_details/camp_details_features_widget.dart';
+import 'package:roadsurferdemo/features/campsites/presentation/widgets/camp_details/camp_details_image_widget.dart';
+import 'package:roadsurferdemo/features/campsites/presentation/widgets/camp_details/camp_details_widget.dart';
 import '../../../../core/notifiers/screen_size_notifier.dart';
 import '../../../../core/providers/screen_size_provider.dart';
-import '../../../../core/themes/themes.dart';
-import '../../../../core/utils/constants.dart';
 import '../../../../core/widgets/app_bar_widget.dart';
 import '../../../../core/widgets/max_width_wrapper_widget.dart';
 import '../../domain/entities/campsite_params.dart';
 import '../providers/state/campsite_state.dart';
-import '../widgets/loading_widget.dart';
 import '../widgets/map/maps_widget.dart';
 
 class CampsiteDetails extends ConsumerStatefulWidget {
-  const CampsiteDetails({super.key});
+  final CampsiteParams? campsite;
+
+  const CampsiteDetails({super.key, required this.campsite});
 
   @override
   ConsumerState<CampsiteDetails> createState() => _CampsiteDetailsState();
 }
 
 class _CampsiteDetailsState extends ConsumerState<CampsiteDetails> {
-  List<CampsiteParams> campsites = [];
+  GeoCodingParams? campAddress;
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       ref.watch(campsiteNotifierProvider);
-      ref.read(campsiteNotifierProvider.notifier).getAllCampsitesUseCase();
-      ref.read(campsiteNotifierProvider.notifier).loadCampsites();
+      ref
+          .read(campsiteNotifierProvider.notifier)
+          .getCampAddress(lat: widget.campsite?.latitude, long: widget.campsite?.longitude);
     });
     super.initState();
   }
@@ -37,7 +42,6 @@ class _CampsiteDetailsState extends ConsumerState<CampsiteDetails> {
   @override
   Widget build(BuildContext context) {
     ScreenSizeNotifier sizeProvider = ref.watch(screenSizeProvider);
-    final theme = Themes(baseContext: context);
     ref.watch(campsiteNotifierProvider);
 
     ref.listen(campsiteNotifierProvider.select((value) => value), ((previous, next) async {
@@ -46,88 +50,69 @@ class _CampsiteDetailsState extends ConsumerState<CampsiteDetails> {
           isLoading = true;
         });
       }
-      if (next is SuccessState) {
+      if (next is AddressResultState) {
         setState(() {
           isLoading = false;
-          isNoData = next.campsites.isEmpty;
-          campsites = next.campsites;
+          campAddress = next.address;
         });
       }
     }));
 
     return Scaffold(
-        appBar: const CampsiteAppBarWidget(),
-        body: MaxWidthWrapper(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+      appBar: const CampsiteAppBarWidget(),
+      body: MaxWidthWrapper(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: sizeProvider.isDesktop ? 50 : 20,
+            vertical: sizeProvider.isDesktop ? 20 : 10,
+          ),
+          child: ScrollConfiguration(
+            behavior: const MaterialScrollBehavior().copyWith(
+              dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse},
+            ),
             child: ListView(
               children: [
-                Text("Maps"),
-                Maps(),
-                const SizedBox(height: 30),
-                Text("Name"),
-                Text("Address"),
-                const SizedBox(height: 30),
-                Divider(),
-                Text("Features"),
-                const SizedBox(height: 10),
-                Wrap(
-                  children: [
-                    Flexible(
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            "assets/images/fire.png",
-                            width: 24,
-                            height: 24,
-                          ),
-                          Text("Feature 1"),
-                        ],
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        Image.asset(
-                          "assets/images/fire.png",
-                          width: 24,
-                          height: 24,
-                        ),
-                        Text("Feature 1"),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Image.asset(
-                          "assets/images/fire.png",
-                          width: 24,
-                          height: 24,
-                        ),
-                        Text("Feature 1"),
-                      ],
-                    ),
-                    ...["en", "de"].where((langCode) => Constants.languageLabels.containsKey(langCode)).map((langCode) {
-                      return Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-                        margin: const EdgeInsets.only(right: 5),
-                        decoration: BoxDecoration(
-                          color: theme.setTheme().primaryColor,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Text(
-                          Constants.languageLabels[langCode]!,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      );
-                    }),
-                  ],
-                )
+                if (!isLoading &&
+                    campAddress != null &&
+                    widget.campsite?.latitude != null &&
+                    widget.campsite?.longitude != null) ...[
+                  const SizedBox(height: 32),
+                  Maps(campAddress: campAddress, campsite: widget.campsite),
+                ],
+                const SizedBox(height: 32),
+                CampDetailsWidget(campAddress: campAddress, campsite: widget.campsite),
+                const SizedBox(height: 32),
+                if (sizeProvider.isDesktop) webView(widget.campsite!),
+                if (!sizeProvider.isDesktop) mobileView(widget.campsite!),
               ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
+}
+
+Widget webView(campsite) {
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      Expanded(flex: 1, child: CampDetailsFeaturesWidget(campsite: campsite)),
+      const SizedBox(width: 32),
+      Expanded(flex: 1, child: CampDetailsImageWidget(campsite: campsite)),
+    ],
+  );
+}
+
+Widget mobileView(campsite) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      CampDetailsFeaturesWidget(campsite: campsite),
+      const SizedBox(height: 32),
+      CampDetailsImageWidget(campsite: campsite),
+    ],
+  );
 }

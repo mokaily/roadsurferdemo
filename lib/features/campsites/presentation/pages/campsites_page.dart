@@ -1,5 +1,4 @@
-import 'dart:ui';
-
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roadsurferdemo/core/notifiers/screen_size_notifier.dart';
@@ -81,56 +80,63 @@ class _CampsitesPageState extends ConsumerState<CampsitesPage> {
     }));
 
     return Scaffold(
-        appBar: const CampsiteAppBarWidget(),
-        body: CustomScrollView(
-          physics: const NeverScrollableScrollPhysics(),
-          scrollBehavior: const ScrollBehavior().copyWith(scrollbars: false),
-          slivers: [
-            const SliverToBoxAdapter(
-              child: HeaderWidget(),
-            ),
-            SliverFillRemaining(
-              child: MaxWidthWrapper(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: sizeProvider.isDesktop ? 50 : 20, vertical: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (sizeProvider.isDesktop) const SizedBox(width: 300, child: FiltersScreen()),
-                      Expanded(
+      appBar: const CampsiteAppBarWidget(),
+      body: CustomScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        scrollBehavior: const ScrollBehavior().copyWith(scrollbars: false),
+        slivers: [
+          const SliverToBoxAdapter(child: HeaderWidget()),
+          SliverFillRemaining(
+            child: MaxWidthWrapper(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: sizeProvider.isDesktop ? 50 : 20,
+                  vertical: sizeProvider.isDesktop ? 20 : 10,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (sizeProvider.isDesktop) const SizedBox(width: 300, child: FiltersScreen()),
+                    Flexible(
+                      child: Align(
+                        alignment: Alignment.topLeft,
                         child: ScrollConfiguration(
                           behavior: const MaterialScrollBehavior().copyWith(
-                            dragDevices: {
-                              PointerDeviceKind.touch,
-                              PointerDeviceKind.mouse,
-                            },
+                            dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse},
                           ),
                           child: CustomScrollView(
                             shrinkWrap: true,
                             slivers: [
-                              if (sizeProvider.isDesktop)
-                                const SliverToBoxAdapter(
-                                  child: SubHeaderWidget(),
-                                ),
-                              SliverPersistentHeader(
-                                pinned: true,
-                                delegate: _StickySearchFilterBar(),
-                              ),
+                              if (sizeProvider.isDesktop) const SliverToBoxAdapter(child: SubHeaderWidget()),
+                              SliverPersistentHeader(pinned: true, delegate: _StickySearchFilterBar()),
                               if (isLoading) const LoadingWidget(),
                               if (!isLoading && isNoData) const NoDataWidget(),
-                              if (!isLoading && !isNoData) CampGridViewWidget(campsite: campsites),
+                              if (!isLoading && !isNoData) ...[
+                                SliverToBoxAdapter(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
+                                    child: Text(
+                                      '${campsites.length} Campsites found',
+                                      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                ),
+                                CampGridViewWidget(campsite: campsites),
+                              ],
                             ],
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }
 

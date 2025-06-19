@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:roadsurferdemo/features/campsites/domain/entities/filter_params.dart';
 import 'package:roadsurferdemo/features/campsites/domain/enums/campsite_sortby_enums.dart';
 import 'package:roadsurferdemo/features/campsites/presentation/providers/state/campsite_state.dart';
 import '../../../../../dependency_injection.dart';

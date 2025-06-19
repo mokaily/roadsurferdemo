@@ -23,6 +23,7 @@ dependencies:
   flutter_map: ^8.1.1
   flutter_map_cancellable_tile_provider: ^3.1.0
   mockito: ^5.4.6
+  url_launcher: ^6.3.1
 
 dev_dependencies:
   flutter_test:

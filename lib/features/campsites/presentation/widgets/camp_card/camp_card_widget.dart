@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:roadsurferdemo/features/campsites/presentation/pages/campsite_details_page.dart';
 import '../../../domain/entities/campsite_params.dart';
 import 'language_chip_widget.dart';
 import 'package:roadsurferdemo/core/utils/extensions.dart';
@@ -25,7 +26,14 @@ class _CampCardWidgetState extends ConsumerState<CampCardWidget> {
       onEnter: (_) => setState(() => _isHover = true),
       onExit: (_) => setState(() => _isHover = false),
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute<void>(
+              builder: (BuildContext context) => CampsiteDetails(campsite: widget.campsite),
+            ),
+          );
+        },
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           padding: const EdgeInsets.all(12),
@@ -87,7 +95,7 @@ class _CampCardWidgetState extends ConsumerState<CampCardWidget> {
                         ),
                       ),
                       Text(
-                        widget.campsite!.label.capitalize(),
+                        widget.campsite!.label.capitalCase(),
                         maxLines: 1,
                         style: const TextStyle(
                           fontSize: 20,

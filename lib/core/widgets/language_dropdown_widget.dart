@@ -12,20 +12,42 @@ class LanguageDropdownWidget extends ConsumerStatefulWidget {
 }
 
 class _LanguageDropdownWidgetState extends ConsumerState<LanguageDropdownWidget> {
-
   bool _isHovering = false;
+  late final TextEditingController _controller;
+  final FocusNode _focusNode = FocusNode(skipTraversal: true, canRequestFocus: false);
+
+  @override
+  void initState() {
+    super.initState();
+    final locale = ref.read(localeProvider);
+    _controller = TextEditingController(text: locale.languageCode);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _focusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final locale = ref.watch(localeProvider);
+    if (_controller.text != locale.languageCode) {
+      _controller.text = locale.languageCode.toUpperCase();
+    }
 
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovering = true),
       onExit: (_) => setState(() => _isHovering = false),
       child: DropdownMenu<String>(
+        controller: _controller,
+        focusNode: _focusNode,
         enabled: true,
         width: 80,
         initialSelection: locale.languageCode,
+        enableSearch: false,
+        enableFilter: false,
         onSelected: (value) {
           if (value != null) {
             ref.read(localeProvider.notifier).state = Locale(value);
@@ -36,13 +58,17 @@ class _LanguageDropdownWidgetState extends ConsumerState<LanguageDropdownWidget>
           color: Colors.black,
           decoration: _isHovering ? TextDecoration.underline : TextDecoration.none,
         ),
+        inputDecorationTheme: const InputDecorationTheme(
+          border: InputBorder.none,
+        ),
         dropdownMenuEntries: Constants.kSupportedLanguages.entries.map((entry) {
           return DropdownMenuEntry<String>(
             value: entry.key,
-            labelWidget:  Text(
+            label: entry.value,
+            labelWidget: Text(
               entry.value,
               style: const TextStyle(color: Colors.white),
-            ), label: entry.value,
+            ),
           );
         }).toList(),
       ),

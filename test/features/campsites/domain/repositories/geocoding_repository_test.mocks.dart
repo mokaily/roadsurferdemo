@@ -3,10 +3,7 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i3;
-
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i4;
 import 'package:roadsurferdemo/features/campsites/domain/repositories/geocoding_repository.dart'
     as _i2;
 
@@ -28,35 +25,4 @@ import 'package:roadsurferdemo/features/campsites/domain/repositories/geocoding_
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGeocodingRepository extends _i1.Mock
-    implements _i2.GeocodingRepository {
-  @override
-  _i3.Future<String> getCityNameFromCoordinates({
-    required double? latitude,
-    required double? longitude,
-  }) =>
-      (super.noSuchMethod(
-            Invocation.method(#getCityNameFromCoordinates, [], {
-              #latitude: latitude,
-              #longitude: longitude,
-            }),
-            returnValue: _i3.Future<String>.value(
-              _i4.dummyValue<String>(
-                this,
-                Invocation.method(#getCityNameFromCoordinates, [], {
-                  #latitude: latitude,
-                  #longitude: longitude,
-                }),
-              ),
-            ),
-            returnValueForMissingStub: _i3.Future<String>.value(
-              _i4.dummyValue<String>(
-                this,
-                Invocation.method(#getCityNameFromCoordinates, [], {
-                  #latitude: latitude,
-                  #longitude: longitude,
-                }),
-              ),
-            ),
-          )
-          as _i3.Future<String>);
-}
+    implements _i2.GeocodingRepository {}
