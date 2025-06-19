@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roadsurferdemo/core/notifiers/screen_size_notifier.dart';
 import 'package:roadsurferdemo/core/providers/screen_size_provider.dart';
+import 'package:roadsurferdemo/core/themes/themes.dart';
 import 'package:roadsurferdemo/core/widgets/max_width_wrapper_widget.dart';
 import 'package:roadsurferdemo/l10n/app_localizations.dart';
 
@@ -10,6 +11,7 @@ class HeaderWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Themes(baseContext: context);
     ScreenSizeNotifier sizeProvider = ref.watch(screenSizeProvider);
 
     return Container(
@@ -34,19 +36,21 @@ class HeaderWidget extends ConsumerWidget {
                 AppLocalizations.of(context)!.g_header_title,
                 maxLines: 2,
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: sizeProvider.isDesktop ? 45 : 34,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
+                style: theme.setTheme().textTheme.headlineLarge?.copyWith(
+                  fontSize: sizeProvider.isDesktop ? 45 : 34,
+                ),
               ),
               if (sizeProvider.isDesktop) ...[
                 const SizedBox(height: 8),
                 Text(
                   AppLocalizations.of(context)!.g_header_subtitle,
-                  style: const TextStyle(fontSize: 16, color: Colors.white70),
+                  style: theme.setTheme().textTheme.displaySmall?.copyWith(
+                    fontWeight: FontWeight.w300,
+                    color: Colors.white70,
+                  ),
                 ),
                 const SizedBox(height: 30),
-              ]
+              ],
             ],
           ),
         ),

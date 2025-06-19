@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:roadsurferdemo/core/themes/themes.dart';
 import 'package:roadsurferdemo/features/campsites/presentation/pages/campsite_details_page.dart';
 import 'package:roadsurferdemo/l10n/app_localizations.dart';
 import '../../../domain/entities/campsite_params.dart';
@@ -22,6 +23,8 @@ class _CampCardWidgetState extends ConsumerState<CampCardWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Themes(baseContext: context);
+
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => _isHover = true),
@@ -89,20 +92,18 @@ class _CampCardWidgetState extends ConsumerState<CampCardWidget> {
                           children: <TextSpan>[
                             TextSpan(
                               text: widget.campsite?.pricePerNight.toStringAsFixed(2),
-                              style: const TextStyle(fontWeight: FontWeight.bold),
+                              style: theme.setTheme().textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            const TextSpan(text: " / night"),
+                            TextSpan(text: AppLocalizations.of(context)!.g_night.toLowerCase()),
                           ],
                         ),
                       ),
                       Text(
                         widget.campsite!.label.capitalCase(),
                         maxLines: 1,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
+                        style: theme.setTheme().textTheme.displayMedium,
                       ),
                       const SizedBox(height: 5),
                       SingleChildScrollView(

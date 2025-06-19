@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:roadsurferdemo/core/themes/themes.dart';
 import 'package:roadsurferdemo/features/campsites/domain/entities/filter_params.dart';
 import 'package:roadsurferdemo/features/campsites/presentation/providers/state/campsite_state.dart';
 import 'package:roadsurferdemo/l10n/app_localizations.dart';
@@ -29,6 +30,7 @@ class _CampCardWidgetState extends ConsumerState<FilterFeaturesWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Themes(baseContext: context);
     final campsiteNotifier = ref.watch(campsiteNotifierProvider.notifier);
     FilterParams currentFilter = ref.watch(currentFilterProvider);
 
@@ -52,7 +54,7 @@ class _CampCardWidgetState extends ConsumerState<FilterFeaturesWidget> {
       children: [
         Text(
           AppLocalizations.of(context)!.f_features,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          style: theme.setTheme().textTheme.bodySmall,
         ),
         FilterCheckboxTile(
           onChanged: (value) => setState(() {

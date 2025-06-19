@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:roadsurferdemo/core/themes/themes.dart';
 
 class CampFeaturesWidget extends StatelessWidget {
   final String feature;
@@ -8,16 +9,13 @@ class CampFeaturesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Themes(baseContext: context);
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Image.asset(
-          iconPath,
-          width: 24,
-          height: 24,
-        ),
+        Image.asset(iconPath, width: 24, height: 24),
         const SizedBox(width: 5),
-        Text(feature)
+        Text(feature, style: theme.setTheme().textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400)),
       ],
     );
   }

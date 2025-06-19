@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:roadsurferdemo/core/themes/themes.dart';
 import 'package:roadsurferdemo/features/campsites/domain/enums/campsite_sortby_enums.dart';
 import 'package:roadsurferdemo/features/campsites/presentation/providers/state/campsite_state.dart';
 import 'package:roadsurferdemo/l10n/app_localizations.dart';
@@ -20,17 +21,15 @@ class _CampCardWidgetState extends ConsumerState<FilterSortByWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Themes(baseContext: context);
     final campsiteNotifier = ref.read(campsiteNotifierProvider.notifier);
     final state = ref.watch(campsiteNotifierProvider);
     final currentFilter = state is FilterInitiating ? state.filterParams : campsiteNotifier.filterParams;
 
-
     CampsiteSortBy? selected = currentFilter.sortBy;
 
     void toggleSortBy(CampsiteSortBy value) {
-      final updated = ref.watch(currentFilterProvider).copyWith(
-        sortBy: value == selected ? null : value,
-      );
+      final updated = ref.watch(currentFilterProvider).copyWith(sortBy: value == selected ? null : value);
       campsiteNotifier.applyFilter(updated);
     }
 
@@ -42,28 +41,34 @@ class _CampCardWidgetState extends ConsumerState<FilterSortByWidget> {
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
         RadioListTile<CampsiteSortBy>(
-          title: Text(AppLocalizations.of(context)!.f_lowest_price),
+          title: Text(
+            AppLocalizations.of(context)!.f_lowest_price,
+            style: theme.setTheme().textTheme.bodyMedium,
+          ),
           value: CampsiteSortBy.lowestPrice,
           groupValue: currentFilter.sortBy,
           controlAffinity: ListTileControlAffinity.trailing,
           onChanged: (value) => toggleSortBy(CampsiteSortBy.lowestPrice),
         ),
         RadioListTile<CampsiteSortBy>(
-          title: Text(AppLocalizations.of(context)!.f_highest_price),
+          title: Text(
+            AppLocalizations.of(context)!.f_highest_price,
+            style: theme.setTheme().textTheme.bodyMedium,
+          ),
           value: CampsiteSortBy.highestPrice,
           groupValue: currentFilter.sortBy,
           controlAffinity: ListTileControlAffinity.trailing,
           onChanged: (value) => toggleSortBy(CampsiteSortBy.highestPrice),
         ),
         RadioListTile<CampsiteSortBy>(
-          title: Text(AppLocalizations.of(context)!.f_older),
+          title: Text(AppLocalizations.of(context)!.f_older, style: theme.setTheme().textTheme.bodyMedium),
           value: CampsiteSortBy.older,
           groupValue: currentFilter.sortBy,
           controlAffinity: ListTileControlAffinity.trailing,
           onChanged: (value) => toggleSortBy(CampsiteSortBy.older),
         ),
         RadioListTile<CampsiteSortBy>(
-          title: Text(AppLocalizations.of(context)!.f_newer),
+          title: Text(AppLocalizations.of(context)!.f_newer, style: theme.setTheme().textTheme.bodyMedium),
           value: CampsiteSortBy.newer,
           groupValue: currentFilter.sortBy,
           controlAffinity: ListTileControlAffinity.trailing,

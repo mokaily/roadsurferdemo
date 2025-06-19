@@ -50,7 +50,7 @@ class CampDetailsFeaturesWidget extends ConsumerWidget {
                         const SizedBox(height: 8),
                         Text(
                           AppLocalizations.of(context)!.f_camp_fires_allowed,
-                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
+                          style: theme.setTheme().textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400),
                         ),
                       ],
                     ),
@@ -64,7 +64,7 @@ class CampDetailsFeaturesWidget extends ConsumerWidget {
                         const SizedBox(height: 8),
                         Text(
                           AppLocalizations.of(context)!.f_close_to_water,
-                          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
+                          style: theme.setTheme().textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400),
                         ),
                       ],
                     ),
@@ -95,7 +95,7 @@ class CampDetailsFeaturesWidget extends ConsumerWidget {
                         const SizedBox(height: 8),
                         Text(
                           "${languagesLabel[langCode]} ${AppLocalizations.of(context)!.d_supported}",
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
+                          style: theme.setTheme().textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400),
                         ),
                       ],
                     ),
@@ -118,7 +118,10 @@ class CampDetailsFeaturesWidget extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Text(AppLocalizations.of(context)!.d_highly_rated, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
+                      Text(
+                        AppLocalizations.of(context)!.d_highly_rated,
+                        style: theme.setTheme().textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400),
+                      ),
                     ],
                   ),
                 ),

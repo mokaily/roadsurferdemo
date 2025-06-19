@@ -55,20 +55,16 @@ class _LanguageDropdownWidgetState extends ConsumerState<LanguageDropdownWidget>
         },
         textStyle: TextStyle(
           fontWeight: FontWeight.w500,
+          fontSize: 16,
           color: Colors.black,
           decoration: _isHovering ? TextDecoration.underline : TextDecoration.none,
         ),
-        inputDecorationTheme: const InputDecorationTheme(
-          border: InputBorder.none,
-        ),
+        inputDecorationTheme: const InputDecorationTheme(border: InputBorder.none),
         dropdownMenuEntries: Constants.kSupportedLanguages.entries.map((entry) {
           return DropdownMenuEntry<String>(
             value: entry.key,
             label: entry.value,
-            labelWidget: Text(
-              entry.value,
-              style: const TextStyle(color: Colors.white),
-            ),
+            labelWidget: Text(entry.value, style: const TextStyle(color: Colors.white, fontSize: 14)),
           );
         }).toList(),
       ),
