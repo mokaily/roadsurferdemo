@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roadsurferdemo/features/campsites/domain/enums/campsite_sortby_enums.dart';
+import 'package:roadsurferdemo/features/campsites/domain/use_cases/get_geocoding_use_case.dart';
 
 import '../../../domain/entities/campsite_params.dart';
 import '../../../domain/entities/filter_params.dart';
@@ -9,6 +10,7 @@ import 'campsite_state.dart';
 
 class CampsiteNotifier extends StateNotifier<CampsiteState> {
   final GetAllCampsitesUseCase getAllCampsitesUseCase;
+  final GetGeocodingCase getGeocodingCase;
 
   List<CampsiteParams> campsites = [];
   List<CampsiteParams> filteredCampsites = [];
@@ -18,22 +20,27 @@ class CampsiteNotifier extends StateNotifier<CampsiteState> {
 
   CampsiteNotifier({
     required this.getAllCampsitesUseCase,
+    required this.getGeocodingCase,
   }) : super(const CampsiteState.initial());
 
   Future<void> loadCampsites({bool initLoading = false}) async {
     state = const CampsiteState.loading();
-
     try {
       final result = await getAllCampsitesUseCase();
       await _getAvailableLanguages(campsites: result);
       await _calculateMinMaxPrices(campsites: result);
       campsites = result;
       state = CampsiteState.success(campsites: result);
+    } catch (e) {
+      state = CampsiteState.error(e.toString());
+    }
+  }
 
-      // await Future.delayed(Duration(seconds: 3), () {
-      //   campsites.first.address = "aaaaaaaaaaaaaaa";
-      //   state = CampsiteState.success(campsites: campsites);
-      // });
+  Future<void> getCampAddress({required double? lat, required double? long}) async {
+    state = const CampsiteState.loadingAddress();
+    try {
+      final result = await getGeocodingCase(lat: lat, long: long);
+      state = CampsiteState.addressResult(address: result);
     } catch (e) {
       state = CampsiteState.error(e.toString());
     }

@@ -109,6 +109,38 @@ String toString() {
 /// @nodoc
 
 
+class LoadingAddressState implements CampsiteState {
+  const LoadingAddressState();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoadingAddressState);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'CampsiteState.loadingAddress()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
 class ErrorState implements CampsiteState {
   const ErrorState(this.error);
   
@@ -238,6 +270,72 @@ class _$SuccessStateCopyWithImpl<$Res>
   return _then(SuccessState(
 campsites: null == campsites ? _self._campsites : campsites // ignore: cast_nullable_to_non_nullable
 as List<CampsiteParams>,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class AddressResultState implements CampsiteState {
+  const AddressResultState({required this.address});
+  
+
+ final  GeoCodingParams? address;
+
+/// Create a copy of CampsiteState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AddressResultStateCopyWith<AddressResultState> get copyWith => _$AddressResultStateCopyWithImpl<AddressResultState>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AddressResultState&&(identical(other.address, address) || other.address == address));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,address);
+
+@override
+String toString() {
+  return 'CampsiteState.addressResult(address: $address)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AddressResultStateCopyWith<$Res> implements $CampsiteStateCopyWith<$Res> {
+  factory $AddressResultStateCopyWith(AddressResultState value, $Res Function(AddressResultState) _then) = _$AddressResultStateCopyWithImpl;
+@useResult
+$Res call({
+ GeoCodingParams? address
+});
+
+
+
+
+}
+/// @nodoc
+class _$AddressResultStateCopyWithImpl<$Res>
+    implements $AddressResultStateCopyWith<$Res> {
+  _$AddressResultStateCopyWithImpl(this._self, this._then);
+
+  final AddressResultState _self;
+  final $Res Function(AddressResultState) _then;
+
+/// Create a copy of CampsiteState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? address = freezed,}) {
+  return _then(AddressResultState(
+address: freezed == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
+as GeoCodingParams?,
   ));
 }
 
