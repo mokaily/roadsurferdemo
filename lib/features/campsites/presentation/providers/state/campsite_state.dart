@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:roadsurferdemo/features/campsites/data/models/geocoding_model.dart';
 import 'package:roadsurferdemo/features/campsites/domain/entities/filter_params.dart';
 import 'package:roadsurferdemo/features/campsites/domain/entities/geocoding_params.dart';
 import '../../../domain/entities/campsite_params.dart';

@@ -48,7 +48,10 @@ class _MapDetailsWidgetState extends State<MapDetailsWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${widget.campAddress?.city}".substring(0, 15),
+                      "${widget.campAddress?.city}".substring(
+                        0,
+                        widget.campAddress!.city.length > 14 ? 15 : widget.campAddress?.city.length,
+                      ),
                       style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         fontSize: Theme.of(context).textTheme.headlineSmall!.fontSize! - 2,
                       ),

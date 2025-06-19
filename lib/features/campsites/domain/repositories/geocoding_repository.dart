@@ -1,5 +1,3 @@
-// lib/features/campsites/domain/repositories/geocoding_repository.dart
-
 import '../entities/geocoding_params.dart';
 
 abstract class GeocodingRepository {

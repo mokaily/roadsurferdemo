@@ -42,7 +42,7 @@ class _MapsState extends State<Maps> {
           ),
 
           MarkerLayer(
-            markers: [Marker(point: latLng, width: 80, height: 80, child: FlutterLogo())],
+            markers: [Marker(point: latLng, width: 80, height: 80, child: Image.asset('assets/marker.png'))],
           ),
           //
           const MapZoomButtonsWidget(mini: false, padding: 10, alignment: Alignment.bottomRight),

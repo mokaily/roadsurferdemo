@@ -1,5 +1,4 @@
-import 'dart:ui';
-
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roadsurferdemo/core/notifiers/screen_size_notifier.dart';
@@ -90,7 +89,10 @@ class _CampsitesPageState extends ConsumerState<CampsitesPage> {
           SliverFillRemaining(
             child: MaxWidthWrapper(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: sizeProvider.isDesktop ? 50 : 20, vertical: 20),
+                padding: EdgeInsets.symmetric(
+                  horizontal: sizeProvider.isDesktop ? 50 : 20,
+                  vertical: sizeProvider.isDesktop ? 20 : 10,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,

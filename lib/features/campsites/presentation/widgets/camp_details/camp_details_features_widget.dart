@@ -19,9 +19,9 @@ class CampDetailsFeaturesWidget extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Divider(height: 1),
+            const Divider(height: 1),
             const SizedBox(height: 24),
-            Text("Features", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+            const Text("Features", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
             const SizedBox(height: 24),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -38,8 +38,8 @@ class CampDetailsFeaturesWidget extends ConsumerWidget {
                       child: Column(
                         children: [
                           Image.asset("assets/fire.png", width: 48),
-                          SizedBox(height: 8),
-                          Text(
+                          const SizedBox(height: 8),
+                          const Text(
                             "Campfires Allowed",
                             style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
                           ),
@@ -52,8 +52,8 @@ class CampDetailsFeaturesWidget extends ConsumerWidget {
                       child: Column(
                         children: [
                           Image.asset("assets/water.png", width: 48),
-                          SizedBox(height: 8),
-                          Text("Close to Water", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
+                          const SizedBox(height: 8),
+                          const Text("Close to Water", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
                         ],
                       ),
                     ),
@@ -74,7 +74,7 @@ class CampDetailsFeaturesWidget extends ConsumerWidget {
                             child: Center(
                               child: Text(
                                 Constants.languageLabels[langCode]!.substring(0, 2).toUpperCase(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -82,7 +82,7 @@ class CampDetailsFeaturesWidget extends ConsumerWidget {
                               ),
                             ),
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                           Text(
                             "${Constants.languageLabels[langCode]} Supported",
                             style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
@@ -103,17 +103,17 @@ class CampDetailsFeaturesWidget extends ConsumerWidget {
                             color: theme.setTheme().primaryColor,
                             borderRadius: BorderRadius.circular(24),
                           ),
-                          child: Center(
+                          child: const Center(
                             child: Icon(Icons.star_border_purple500_outlined, color: Colors.white),
                           ),
                         ),
-                        SizedBox(height: 8),
-                        Text("Highly Rated", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
+                        const SizedBox(height: 8),
+                        const Text("Highly Rated", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
                       ],
                     ),
                   ),
                   const SizedBox(height: 24),
-                  Divider(height: 1),
+                  const Divider(height: 1),
                 ],
               ),
             ),

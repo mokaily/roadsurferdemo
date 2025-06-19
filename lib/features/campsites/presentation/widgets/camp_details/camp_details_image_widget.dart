@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:roadsurferdemo/core/themes/themes.dart';
 import 'package:roadsurferdemo/features/campsites/domain/entities/campsite_params.dart';
 
 class CampDetailsImageWidget extends ConsumerWidget {
@@ -10,8 +9,6 @@ class CampDetailsImageWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Themes(baseContext: context);
-
     return Container(
       height: 350,
       alignment: Alignment.center,

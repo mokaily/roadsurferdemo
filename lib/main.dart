@@ -5,7 +5,6 @@ import 'package:roadsurferdemo/core/utils/constants.dart';
 import 'core/providers/local_provider.dart';
 import 'core/providers/screen_size_provider.dart';
 import 'core/themes/themes.dart';
-import 'features/campsites/presentation/pages/campsite_details_page.dart';
 import 'features/campsites/presentation/pages/campsites_page.dart';
 import 'l10n/app_localizations.dart';
 
@@ -23,11 +22,10 @@ class MyApp extends ConsumerWidget {
     globalRef = ref;
 
     WidgetsBinding.instance.addPostFrameCallback(
-          (timeStamp) => ref.read(screenSizeProvider).updateSize(context),
+      (timeStamp) => ref.read(screenSizeProvider).updateSize(context),
     );
 
     final locale = ref.watch(localeProvider);
-    final size = ref.watch(screenSizeProvider);
 
     return MaterialApp(
       title: Constants.kName,

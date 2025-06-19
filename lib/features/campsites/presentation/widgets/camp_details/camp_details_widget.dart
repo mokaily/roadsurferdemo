@@ -48,9 +48,9 @@ class CampDetailsWidget extends ConsumerWidget {
                 "€ ${campsite?.pricePerNight.toStringAsFixed(2)}",
                 style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
               ),
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: const Text("per night", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+              const Padding(
+                padding: EdgeInsets.all(4.0),
+                child: Text("per night", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
               ),
             ],
           ),

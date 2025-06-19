@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roadsurferdemo/dependency_injection.dart';
@@ -61,22 +62,30 @@ class _CampsiteDetailsState extends ConsumerState<CampsiteDetails> {
       appBar: const CampsiteAppBarWidget(),
       body: MaxWidthWrapper(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: sizeProvider.isDesktop ? 50 : 20, vertical: 20),
-          child: ListView(
-            children: [
-              if (!isLoading &&
-                  campAddress != null &&
-                  widget.campsite?.latitude != null &&
-                  widget.campsite?.longitude != null) ...[
+          padding: EdgeInsets.symmetric(
+            horizontal: sizeProvider.isDesktop ? 50 : 20,
+            vertical: sizeProvider.isDesktop ? 20 : 10,
+          ),
+          child: ScrollConfiguration(
+            behavior: const MaterialScrollBehavior().copyWith(
+              dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse},
+            ),
+            child: ListView(
+              children: [
+                if (!isLoading &&
+                    campAddress != null &&
+                    widget.campsite?.latitude != null &&
+                    widget.campsite?.longitude != null) ...[
+                  const SizedBox(height: 32),
+                  Maps(campAddress: campAddress, campsite: widget.campsite),
+                ],
                 const SizedBox(height: 32),
-                Maps(campAddress: campAddress, campsite: widget.campsite),
+                CampDetailsWidget(campAddress: campAddress, campsite: widget.campsite),
+                const SizedBox(height: 32),
+                if (sizeProvider.isDesktop) webView(widget.campsite!),
+                if (!sizeProvider.isDesktop) mobileView(widget.campsite!),
               ],
-              const SizedBox(height: 32),
-              CampDetailsWidget(campAddress: campAddress, campsite: widget.campsite),
-              const SizedBox(height: 32),
-              if (sizeProvider.isDesktop) webView(widget.campsite!),
-              if (!sizeProvider.isDesktop) mobileView(widget.campsite!),
-            ],
+            ),
           ),
         ),
       ),

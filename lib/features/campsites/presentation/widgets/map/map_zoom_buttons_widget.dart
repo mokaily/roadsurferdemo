@@ -57,6 +57,7 @@ class MapZoomButtonsWidget extends StatelessWidget {
             padding: EdgeInsets.all(padding),
             child: FloatingActionButton(
               isExtended: false,
+              heroTag: Random(),
               mini: mini,
               onPressed: () {
                 final zoom = max(camera.zoom - 1, minZoom);

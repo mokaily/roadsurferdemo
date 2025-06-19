@@ -11,13 +11,20 @@ class GeocodingRemoteDataSourceImpl implements GeocodingRemoteDataSource {
 
   @override
   Future<GeoCodingModel?> getLocationComponents({required double? lat, required double? long}) async {
-    bool isValidated = Helpers.validateLatLong(lat: lat, long: long);
+    double? latitude = lat;
+    double? longitude = long;
+    bool isValidated = Helpers.validateLatLong(lat: latitude, long: longitude);
 
     if (!isValidated) {
-      return null;
+      if (Helpers.validateLatLong(lat: longitude, long: latitude)) {
+        latitude = long;
+        longitude = lat;
+      } else {
+        return null;
+      }
     }
 
-    final url = "https://api.geoapify.com/v1/geocode/reverse?lat=$lat&lon=$long&apiKey=$apiKey";
+    final url = "https://api.geoapify.com/v1/geocode/reverse?lat=$latitude&lon=$longitude&apiKey=$apiKey";
 
     try {
       final response = await dio.get(url);
