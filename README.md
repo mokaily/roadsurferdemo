@@ -2,6 +2,8 @@
 
 Roadsurfer Demo Project.
 
+<img src="https://i1.wp.com/resocoder.com/wp-content/uploads/2019/08/CleanArchitecture.jpg" alt="Clean Architecture" width="500"/>
+
 # Final Architecture
 
 <img src="https://i1.wp.com/resocoder.com/wp-content/uploads/2019/08/Clean-Architecture-Flutter-Diagram.png">
