@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:roadsurferdemo/core/themes/themes.dart';
 import 'package:roadsurferdemo/features/campsites/domain/entities/filter_params.dart';
 import 'package:roadsurferdemo/features/campsites/presentation/providers/state/campsite_state.dart';
 import 'package:roadsurferdemo/l10n/app_localizations.dart';
@@ -22,6 +23,7 @@ class _CampCardWidgetState extends ConsumerState<FilterPriceRangeWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Themes(baseContext: context);
     final campsiteNotifier = ref.watch(campsiteNotifierProvider.notifier);
     FilterParams currentFilter = ref.watch(currentFilterProvider);
     double? minLimit = currentFilter.lowestMinPricePerNight;
@@ -50,7 +52,7 @@ class _CampCardWidgetState extends ConsumerState<FilterPriceRangeWidget> {
       children: [
         Text(
           AppLocalizations.of(context)!.f_price_range,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          style: theme.setTheme().textTheme.bodySmall,
         ),
         RangeSlider(
           values: priceRange,

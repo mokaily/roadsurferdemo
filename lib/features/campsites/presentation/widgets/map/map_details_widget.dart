@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:roadsurferdemo/core/themes/themes.dart';
 import 'package:roadsurferdemo/features/campsites/domain/entities/campsite_params.dart';
 import 'package:roadsurferdemo/features/campsites/domain/entities/geocoding_params.dart';
 import 'package:roadsurferdemo/l10n/app_localizations.dart';
@@ -26,6 +27,8 @@ class _MapDetailsWidgetState extends State<MapDetailsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Themes(baseContext: context);
+
     return Container(
       margin: const EdgeInsets.all(10),
       width: 300,
@@ -36,51 +39,46 @@ class _MapDetailsWidgetState extends State<MapDetailsWidget> {
         color: Colors.white,
       ),
       child: Padding(
-        padding: const EdgeInsets.all(7),
+        padding: const EdgeInsets.all(10),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${widget.campAddress?.city}".substring(
-                        0,
-                        widget.campAddress!.city.length > 14 ? 15 : widget.campAddress?.city.length,
-                      ),
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontSize: Theme.of(context).textTheme.headlineSmall!.fontSize!,
-                      ),
-                    ),
-                    Text(
-                      "${widget.campAddress?.city}, ${widget.campAddress?.country}",
-                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                        fontSize: Theme.of(context).textTheme.labelSmall!.fontSize!,
-                      ),
-                    ),
-                  ],
-                ),
-                InkWell(
-                  onTap: () {
-                    _launchURL(
-                      "https://www.google.com/maps/place/@${widget.campsite?.latitude},${widget.campsite?.longitude}",
-                    );
-                  },
-                  child: Text(
-                    AppLocalizations.of(context)!.m_view_larger_map,
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                      color: Colors.blue,
-                      fontSize: Theme.of(context).textTheme.labelSmall!.fontSize!,
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "${widget.campAddress?.city ?? ''}, ${widget.campAddress?.country ?? ''}",
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.setTheme().textTheme.displayMedium?.copyWith(
+                      fontSize: theme.setTheme().textTheme.displayMedium!.fontSize! - 2,
+                      fontWeight: FontWeight.w300,
                     ),
                   ),
-                ),
-              ],
+
+                  InkWell(
+                    onTap: () {
+                      _launchURL(
+                        "https://www.google.com/maps/place/@${widget.campsite?.latitude},${widget.campsite?.longitude}",
+                      );
+                    },
+                    child: Text(
+                      AppLocalizations.of(context)!.m_view_larger_map,
+                      style: theme.setTheme().textTheme.labelSmall?.copyWith(
+                        color: Colors.blue,
+                        fontSize: theme.setTheme().textTheme.labelSmall!.fontSize! - 2,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
+
+            const SizedBox(width: 12),
+
             InkWell(
               onTap: () {
                 _launchURL(
@@ -94,17 +92,21 @@ class _MapDetailsWidgetState extends State<MapDetailsWidget> {
                 ),
                 message: AppLocalizations.of(context)!.m_get_directions,
                 waitDuration: const Duration(milliseconds: 300),
-                textStyle: Theme.of(context).textTheme.labelSmall?.copyWith(
-                  fontSize: Theme.of(context).textTheme.labelSmall!.fontSize!,
+                textStyle: theme.setTheme().textTheme.labelSmall?.copyWith(
+                  fontSize: theme.setTheme().textTheme.labelSmall!.fontSize! - 2,
+                  color: theme.setTheme().primaryColorDark,
+                  fontWeight: FontWeight.w400,
                 ),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const Icon(Icons.directions, color: Colors.blue, size: 25),
                     Text(
                       AppLocalizations.of(context)!.m_directions,
-                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      style: theme.setTheme().textTheme.labelSmall?.copyWith(
                         color: Colors.blue,
-                        fontSize: Theme.of(context).textTheme.labelSmall!.fontSize! - 2,
+                        fontSize: theme.setTheme().textTheme.labelSmall!.fontSize! - 2,
                       ),
                     ),
                   ],
@@ -116,4 +118,5 @@ class _MapDetailsWidgetState extends State<MapDetailsWidget> {
       ),
     );
   }
+
 }

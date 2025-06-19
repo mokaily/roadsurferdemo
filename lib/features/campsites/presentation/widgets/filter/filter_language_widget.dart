@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:roadsurferdemo/core/themes/themes.dart';
 import 'package:roadsurferdemo/core/utils/constants.dart';
 import 'package:roadsurferdemo/features/campsites/domain/entities/filter_params.dart';
 import 'package:roadsurferdemo/features/campsites/presentation/providers/state/campsite_state.dart';
@@ -26,6 +27,7 @@ class _CampCardWidgetState extends ConsumerState<FilterLanguagesWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Themes(baseContext: context);
     FilterParams currentFilter = ref.watch(currentFilterProvider);
     Locale currentLocale = Localizations.localeOf(context);
 
@@ -47,7 +49,7 @@ class _CampCardWidgetState extends ConsumerState<FilterLanguagesWidget> {
       children: [
         Text(
           AppLocalizations.of(context)!.f_languages,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          style: theme.setTheme().textTheme.bodySmall,
         ),
         const SizedBox(height: 10),
         ...?currentFilter.availableLanguages?.map((lang) {

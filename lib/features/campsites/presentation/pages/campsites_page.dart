@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roadsurferdemo/core/notifiers/screen_size_notifier.dart';
 import 'package:roadsurferdemo/core/providers/screen_size_provider.dart';
+import 'package:roadsurferdemo/core/themes/themes.dart';
 import 'package:roadsurferdemo/core/widgets/app_bar_widget.dart';
 import 'package:roadsurferdemo/core/widgets/max_width_wrapper_widget.dart';
 import 'package:roadsurferdemo/dependency_injection.dart';
@@ -41,6 +42,7 @@ class _CampsitesPageState extends ConsumerState<CampsitesPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Themes(baseContext: context);
     ScreenSizeNotifier sizeProvider = ref.watch(screenSizeProvider);
     ref.watch(campsiteNotifierProvider);
 
@@ -119,7 +121,7 @@ class _CampsitesPageState extends ConsumerState<CampsitesPage> {
                                     padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
                                     child: Text(
                                       '${campsites.length} ${AppLocalizations.of(context)!.g_campsite_found}',
-                                      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                                      style: theme.setTheme().textTheme.bodySmall,
                                     ),
                                   ),
                                 ),

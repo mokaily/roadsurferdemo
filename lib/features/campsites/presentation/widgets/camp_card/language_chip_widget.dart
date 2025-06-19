@@ -26,10 +26,7 @@ class LanguageChipsWidget extends StatelessWidget {
             color: theme.setTheme().primaryColor,
             borderRadius: BorderRadius.circular(15),
           ),
-          child: Text(
-            languagesLabel[langCode]!,
-            style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
-          ),
+          child: Text(languagesLabel[langCode]!, style: theme.setTheme().textTheme.labelSmall),
         );
       }).toList(),
     );

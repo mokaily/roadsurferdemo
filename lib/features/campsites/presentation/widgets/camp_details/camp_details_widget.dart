@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:roadsurferdemo/core/themes/themes.dart';
 import 'package:roadsurferdemo/core/utils/extensions.dart';
 import 'package:roadsurferdemo/features/campsites/domain/entities/campsite_params.dart';
 import 'package:roadsurferdemo/features/campsites/domain/entities/geocoding_params.dart';
@@ -13,6 +14,8 @@ class CampDetailsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Themes(baseContext: context);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
@@ -24,7 +27,7 @@ class CampDetailsWidget extends ConsumerWidget {
               children: [
                 Text(
                   campsite!.label.capitalCase(),
-                  style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+                  style: theme.setTheme().textTheme.labelLarge,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                 ),
@@ -33,7 +36,7 @@ class CampDetailsWidget extends ConsumerWidget {
                     padding: const EdgeInsets.all(4.0),
                     child: Text(
                       "${campAddress?.city ?? ""}, ${campAddress?.country}",
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                      style: theme.setTheme().textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w300),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                     ),
@@ -47,11 +50,14 @@ class CampDetailsWidget extends ConsumerWidget {
             children: [
               Text(
                 "€ ${campsite?.pricePerNight.toStringAsFixed(2)}",
-                style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+                style: theme.setTheme().textTheme.labelLarge,
               ),
               Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: Text(AppLocalizations.of(context)!.d_per_night, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+                child: Text(
+                  AppLocalizations.of(context)!.d_per_night,
+                  style: theme.setTheme().textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w300),
+                ),
               ),
             ],
           ),
