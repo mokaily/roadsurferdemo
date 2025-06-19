@@ -1,21 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
   <base href="$FLUTTER_BASE_HREF">
-
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="roadsurfer demo project.">
@@ -28,11 +14,72 @@
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="manifest" href="manifest.json">
 
   <title>roadsurferdemo</title>
-  <link rel="manifest" href="manifest.json">
+
+  <style>
+    /* Loader Styles */
+    .loader-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .loader-logo {
+      width: 180px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .loader-text {
+      color: #306670;
+      font-size: 20px;
+      font-family: sans-serif;
+      margin-bottom: 16px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <script src="flutter_bootstrap.js" async></script>
+<!-- Loader -->
+<div id="loader" class="loader-container">
+  <img src="icons/logo_animate.svg" alt="Logo" class="loader-logo" />
+  <div class="loader-text" id="loader-text">Loading...</div>
+</div>
+
+<!-- Flutter app script -->
+<script src="flutter_bootstrap.js" async></script>
+
+<script>
+  // Detect user language
+  const lang = navigator.language || navigator.userLanguage;
+  const loaderText = document.getElementById("loader-text");
+  if (lang.startsWith("de")) {
+    loaderText.textContent = "Wird geladen...";
+  } else {
+    loaderText.textContent = "Loading...";
+  }
+
+  // Hide loader after Flutter is ready
+  window.addEventListener("flutter-first-frame", function () {
+    const loader = document.getElementById("loader");
+    if (loader) loader.style.display = "none";
+  });
+</script>
 </body>
 </html>
