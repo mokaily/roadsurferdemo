@@ -61,7 +61,7 @@ class _MapDetailsWidgetState extends State<MapDetailsWidget> {
                   InkWell(
                     onTap: () {
                       _launchURL(
-                        "https://www.google.com/maps/place/@${widget.campsite?.latitude},${widget.campsite?.longitude}",
+                        "https://www.google.com/maps/place/${widget.campAddress?.city},+${widget.campAddress?.country}/@${widget.campsite?.latitude},${widget.campsite?.longitude}",
                       );
                     },
                     child: Text(
@@ -82,7 +82,7 @@ class _MapDetailsWidgetState extends State<MapDetailsWidget> {
             InkWell(
               onTap: () {
                 _launchURL(
-                  "https://www.google.com/maps/dir/${widget.campsite?.latitude},${widget.campsite?.longitude}",
+                  "https://www.google.com/maps/dir//${widget.campAddress?.city}/@${widget.campsite?.latitude},${widget.campsite?.longitude}",
                 );
               },
               child: Tooltip(
@@ -118,5 +118,4 @@ class _MapDetailsWidgetState extends State<MapDetailsWidget> {
       ),
     );
   }
-
 }
