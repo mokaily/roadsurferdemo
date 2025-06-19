@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:roadsurferdemo/core/utils/helpers.dart';
+import 'package:roadsurferdemo/features/campsites/domain/entities/campsite_params.dart';
+import 'package:roadsurferdemo/features/campsites/domain/entities/filter_params.dart';
 import 'package:roadsurferdemo/features/campsites/domain/enums/campsite_sortby_enums.dart';
+import 'package:roadsurferdemo/features/campsites/domain/use_cases/get_all_campsites_use_case.dart';
 import 'package:roadsurferdemo/features/campsites/domain/use_cases/get_geocoding_use_case.dart';
 
-import '../../../domain/entities/campsite_params.dart';
-import '../../../domain/entities/filter_params.dart';
-import '../../../domain/use_cases/get_all_campsites_use_case.dart';
 import 'campsite_state.dart';
 
 class CampsiteNotifier extends StateNotifier<CampsiteState> {

@@ -5,10 +5,10 @@ part 'geocoding_model.g.dart';
 
 @JsonSerializable()
 class GeoCodingModel extends GeoCodingParams {
-  GeoCodingModel({
-    required String country,
-    required String city,
-  }) : super(country: country, city: city);
+  const GeoCodingModel({
+    required super.country,
+    required super.city,
+  });
 
   factory GeoCodingModel.fromJson(Map<String, dynamic> json) => _$GeoCodingModelFromJson(json);
 

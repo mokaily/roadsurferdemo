@@ -1,10 +1,64 @@
 {
-  "results": [
+  "type": "FeatureCollection",
+  "features": [
     {
-      "formatted": {
+      "type": "Feature",
+      "properties": {
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright"
+        },
+        "country": "Germany",
+        "country_code": "cn",
+        "region": "Nagqu City",
+        "state": "Tibet",
         "city": "Munich",
-        "country": "Germany"
-      }
+        "town": "Trandam",
+        "iso3166_2": "CN-XZ",
+        "lon": 93.3423925,
+        "lat": 32.6993043,
+        "distance": 0,
+        "result_type": "city",
+        "formatted": "Nyainrong County, Tibet, China",
+        "address_line1": "Nyainrong County",
+        "address_line2": "Tibet, China",
+        "category": "administrative",
+        "timezone": {
+          "name": "Asia/Shanghai",
+          "offset_STD": "+08:00",
+          "offset_STD_seconds": 28800,
+          "offset_DST": "+08:00",
+          "offset_DST_seconds": 28800,
+          "abbreviation_STD": "CST",
+          "abbreviation_DST": "CST"
+        },
+        "plus_code": "8M4MM8XR+PX",
+        "rank": {
+          "importance": 0.22742205121143227,
+          "popularity": 0.2942063649288652
+        },
+        "place_id": "5153793bc2e955574059e139a5cd82594040f00101f9016fce7d0000000000c00208"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          93.3423925,
+          32.6993043
+        ]
+      },
+      "bbox": [
+        93.019535,
+        32.3858905,
+        93.7724301,
+        33.1745671
+      ]
     }
-  ]
+  ],
+  "query": {
+    "lat": 32.95574,
+    "lon": 93.71596,
+    "plus_code": "8M4MXP48+79"
+  }
 }
