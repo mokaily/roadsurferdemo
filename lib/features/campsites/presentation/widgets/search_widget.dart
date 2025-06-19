@@ -6,7 +6,7 @@ import 'package:roadsurferdemo/l10n/app_localizations.dart';
 
 import '../../../../core/providers/screen_size_provider.dart';
 import '../../../../core/themes/themes.dart';
-import 'filter/filter_widget.dart';
+import 'filter/filter_mobile_widget.dart';
 
 class SearchWidget extends ConsumerWidget {
   final double widgetHeight;
@@ -75,30 +75,7 @@ void openSideScreen(BuildContext context) {
     backgroundColor: Colors.transparent,
     barrierColor: Colors.black45,
     builder: (context) {
-      return Stack(
-        children: [
-          GestureDetector(
-            onTap: () => Navigator.of(context).pop(),
-            child: Container(
-              color: Colors.transparent,
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height,
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.5,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-              ),
-              child: const FiltersScreen(),
-            ),
-          ),
-        ],
-      );
+      return const FilterMobileWidget();
     },
   );
 }
