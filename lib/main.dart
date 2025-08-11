@@ -8,8 +8,6 @@ import 'core/themes/themes.dart';
 import 'features/campsites/presentation/pages/campsites_page.dart';
 import 'l10n/app_localizations.dart';
 
-late WidgetRef globalRef;
-
 void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -19,8 +17,6 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    globalRef = ref;
-
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) => ref.read(screenSizeProvider).updateSize(context),
     );

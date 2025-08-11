@@ -30,10 +30,8 @@ class _CampsitesPageState extends ConsumerState<CampsitesPage> {
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      ref.watch(campsiteNotifierProvider);
-      ref.read(campsiteNotifierProvider.notifier).getAllCampsitesUseCase();
-      ref.read(campsiteNotifierProvider.notifier).loadCampsites();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await ref.read(campsiteNotifierProvider.notifier).loadCampsites();
     });
     super.initState();
   }

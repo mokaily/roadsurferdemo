@@ -29,8 +29,7 @@ class _CampsiteDetailsState extends ConsumerState<CampsiteDetails> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      ref.watch(campsiteNotifierProvider);
-      ref
+      await ref
           .read(campsiteNotifierProvider.notifier)
           .getCampAddress(lat: widget.campsite?.latitude, long: widget.campsite?.longitude);
     });
