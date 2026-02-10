@@ -24,6 +24,7 @@ class _CampCardWidgetState extends ConsumerState<CampCardWidget> {
   @override
   Widget build(BuildContext context) {
     final theme = Themes(baseContext: context);
+    final String photoAddress = '${widget.campsite!.photo}?lock=${widget.campsite!.id}';
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
@@ -64,7 +65,7 @@ class _CampCardWidgetState extends ConsumerState<CampCardWidget> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Image.network(
-                      widget.campsite!.photo,
+                      photoAddress,
                       fit: BoxFit.cover,
                       width: double.infinity,
                       height: 150,
