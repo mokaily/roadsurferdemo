@@ -1,6 +1,51 @@
 # Roadsurfer Demo Project.
+Live Demo: https://mokaily.github.io/roadsurferdemo/
 
-Roadsurfer Demo Project.
+## Screenshots
+
+
+## ✨ Features
+
+This Flutter demo app showcases a responsive campsite discovery experience with the following features:
+
+- 🌍 **Multi-language support**  
+  Available in **German (DE)** and **English (EN)**.
+
+- 📱 **Responsive design**  
+  Optimized for **Web**, **Tablet**, and **Mobile** layouts using Flutter’s adaptive UI capabilities.
+
+- 🔍 **Advanced filtering & sorting**
+    - Filter campsites by **price range**
+    - Filter by **features**
+    - Filter by **language**
+    - Sort results to quickly find the best match
+
+- 🏕️ **Campsite discovery**
+  Navigate through campsites and explore the **best available offers near you**.
+
+- 🔎 **Search by campsite name**
+  Quickly find campsites using a text-based search.
+
+---
+
+## 🧱 Architecture & Code Quality
+
+- 🧼 **Clean Architecture**
+  The project follows **Clean Architecture principles**, with a clear separation between:
+    - Presentation layer
+    - Domain layer
+    - Data layer
+
+- 🌊 **State Management with Riverpod**
+  Uses **Riverpod** for predictable state management, dependency injection, and improved testability.
+
+- 🧪 **Unit Testing**
+  Core business logic and key components are covered by **unit tests**.
+
+- 🔄 **CI/CD with GitHub Actions**
+  Automated **builds, tests, and checks** are configured using **GitHub Actions** to ensure code quality and consistency on every push and pull request.
+
+---
 
 <img src="https://i1.wp.com/resocoder.com/wp-content/uploads/2019/08/CleanArchitecture.jpg" alt="Clean Architecture" width="750"/>
 
